@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,7 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="CompositeDataService.cs" />
+    <Compile Include="CompositeDataServiceContext.cs" />
+    <Compile Include="CompositeDataServiceMetadataProvider.cs" />
+    <Compile Include="CompositeDataServiceQueryProvider.cs" />
+    <Compile Include="CompositeDataSource.cs" />
+    <Compile Include="EntityFrameworkDataSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

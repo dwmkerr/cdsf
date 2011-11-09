@@ -5,7 +5,12 @@ using System.Text;
 
 namespace CompositeDataServiceFramework.Server
 {
-    public class Class1
+    public class CompositeDataSource
     {
+        public string Name
+        {
+            get;
+            set;
+        }
     }
 }
