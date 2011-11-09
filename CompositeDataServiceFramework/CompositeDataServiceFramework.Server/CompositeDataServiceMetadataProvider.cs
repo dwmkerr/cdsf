@@ -37,13 +37,17 @@ namespace CompositeDataServiceFramework.Server
 
         public IEnumerable<ResourceSet> ResourceSets
         {
-            get { return this.resourceSets.Values; } 
+            get { return resourceSets.Values; } 
         }
 
         public IEnumerable<ServiceOperation> ServiceOperations
         {
-            // No service operations yet 
-            get { yield break; } 
+            get { return serviceOperations.Values; }
+        }
+
+        public IEnumerable<ResourceType> Types
+        {
+            get { return resourceTypes.Values; }
         }
 
         public bool TryResolveResourceSet(string name, out ResourceSet resourceSet)
@@ -58,14 +62,7 @@ namespace CompositeDataServiceFramework.Server
 
         public bool TryResolveServiceOperation(string name, out ServiceOperation serviceOperation)
         {
-            // No service operations are supported yet 
-            serviceOperation = null;
-            return false; 
-        }
-
-        public IEnumerable<ResourceType> Types
-        {
-            get { return this.resourceTypes.Values; } 
+            return serviceOperations.TryGetValue(name, out serviceOperation);
         }
 
         public void AddResourceType(ResourceType type)
@@ -85,5 +82,8 @@ namespace CompositeDataServiceFramework.Server
 
         private Dictionary<string, ResourceSet> resourceSets = 
             new Dictionary<string, ResourceSet>();
+
+        private Dictionary<string, ServiceOperation> serviceOperations =
+            new Dictionary<string, ServiceOperation>();
     }
 }

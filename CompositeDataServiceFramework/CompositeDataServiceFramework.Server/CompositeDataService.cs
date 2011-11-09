@@ -79,7 +79,8 @@ namespace CompositeDataServiceFramework.Server
             metadataProvider.AddResourceType(productType);
             metadataProvider.AddResourceSet(
                new ResourceSet("Products", productType)
-            ); 
+            );
+
 
             return metadataProvider; 
         }
@@ -101,6 +102,13 @@ namespace CompositeDataServiceFramework.Server
         {
             //  Add the composite data source.
             compositeDataSources.Add(source.Name, source);
+        }
+
+        public void Initialise()
+        {
+            //  Initialise each data source.
+            foreach (var dataSource in compositeDataSources.Values)
+                dataSource.Initialise();
         }
 
         /// <summary>

@@ -52,6 +52,7 @@
     <Compile Include="CompositeDataServiceQueryProvider.cs" />
     <Compile Include="CompositeDataSource.cs" />
     <Compile Include="EntityFrameworkDataSource.cs" />
+    <Compile Include="HttpHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
