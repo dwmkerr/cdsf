@@ -8,6 +8,13 @@ namespace CompositeDataServiceFramework.Server
 {
     public class CompositeDataServiceQueryProvider : IDataServiceQueryProvider
     {
+        public CompositeDataServiceQueryProvider(CompositeDataServiceMetadataProvider metadataProvider)
+        {
+            this.metadataProvider = metadataProvider;
+        }
+
+        private CompositeDataServiceMetadataProvider metadataProvider;
+
         private CompositeDataServiceContext compositeDataServiceContext;
 
         public object CurrentDataSource
@@ -39,12 +46,16 @@ namespace CompositeDataServiceFramework.Server
 
         public IQueryable GetQueryRootForResourceSet(ResourceSet resourceSet)
         {
-            throw new NotImplementedException();
+            CompositeDataSource source;
+            if(metadataProvider.TryResolveResourceSet(resourceSet.Name, out resourceSet, out source) == false)
+                return null;
+            return source.GetQueryRootForResourceSet(resourceSet);
         }
 
         public ResourceType GetResourceType(object target)
         {
-            throw new NotImplementedException();
+            Type type = target.GetType();
+            return metadataProvider.Types.Single(t => t.InstanceType == type); 
         }
 
         public object InvokeServiceOperation(ServiceOperation serviceOperation, object[] parameters)
@@ -54,7 +65,7 @@ namespace CompositeDataServiceFramework.Server
 
         public bool IsNullPropagationRequired
         {
-            get { throw new NotImplementedException(); }
+            get { return true; }
         }
     }
 }

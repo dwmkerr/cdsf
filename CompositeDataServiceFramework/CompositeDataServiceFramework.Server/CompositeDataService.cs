@@ -24,7 +24,7 @@ namespace CompositeDataServiceFramework.Server
         metadataProvider = GetMetadataProvider();
 
         //  Create the query provider.
-        queryProvider = GetQueryProvider();
+        queryProvider = GetQueryProvider(metadataProvider);
       }
 
       /// <summary>
@@ -53,7 +53,7 @@ namespace CompositeDataServiceFramework.Server
 
             //  Support IDataServiceQueryProvider.
             if (serviceType == typeof(IDataServiceQueryProvider))
-                return GetQueryProvider();
+                return GetQueryProvider(metadataProvider);
 
             return null;
         }
@@ -103,14 +103,14 @@ namespace CompositeDataServiceFramework.Server
             return metadataProvider; 
         }
 
-        private CompositeDataServiceQueryProvider GetQueryProvider()
+        private CompositeDataServiceQueryProvider GetQueryProvider(CompositeDataServiceMetadataProvider metadataProvider)
         {
             //  Return the query provider if it already exists.
             if (queryProvider != null)
                 return queryProvider;
 
             //  Create the query provider.
-            queryProvider = new CompositeDataServiceQueryProvider();
+            queryProvider = new CompositeDataServiceQueryProvider(metadataProvider);
 
             //  Return the query provider.
             return queryProvider;

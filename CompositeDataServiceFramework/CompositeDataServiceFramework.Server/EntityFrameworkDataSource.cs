@@ -28,17 +28,16 @@ namespace CompositeDataServiceFramework.Server
           //  Go through each entity type and map it to a resource type.
           foreach (var entityType in metadataLoader.EntityTypes)
           {
-            metadataProvider.AddResourceType(EntityToResourceMapping.MapEntityType(entityType, context, metadataProvider.ContainerNamespace));
+            metadataProvider.AddResourceType(EntityToResourceMapping.MapEntityType(entityType, context, metadataProvider.ContainerNamespace), this);
           }
 
           //  Go through each entity set and map it to a resource set.
           foreach(var entitySet in metadataLoader.EntitySets)
           {
             ResourceType setType;
-            //  ***TODO tidier way than x.y?
-            if(metadataProvider.TryResolveResourceType(metadataProvider.ContainerNamespace+"."+ entitySet.ElementType.Name, out setType))
+            if(metadataProvider.TryResolveResourceType(entitySet.ElementType.Name, out setType))
             {
-              metadataProvider.AddResourceSet(new ResourceSet(entitySet.Name, setType));
+              metadataProvider.AddResourceSet(new ResourceSet(entitySet.Name, setType), this);
             }
           }
         }

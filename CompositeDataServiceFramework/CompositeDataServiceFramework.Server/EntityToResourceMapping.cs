@@ -30,12 +30,19 @@ namespace CompositeDataServiceFramework.Server
 
       //  Add each property.
       //  ***TODO, keys, complex types.
+      bool first = true;
       foreach (var propertyType in entityType.Properties)
       {
+          ResourcePropertyKind kind = ResourcePropertyKind.Primitive;
+          if (first)
+          {
+              kind |= ResourcePropertyKind.Key;
+              first = false;
+          }
+
         var resourceProperty = new ResourceProperty(
                propertyType.Name,
-               ResourcePropertyKind.Key |
-               ResourcePropertyKind.Primitive,
+               kind,
                MapEdmType(propertyType.TypeUsage.EdmType)
             );
         resourceType.AddProperty(resourceProperty);

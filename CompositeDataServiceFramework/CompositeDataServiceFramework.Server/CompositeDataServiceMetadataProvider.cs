@@ -65,22 +65,36 @@ namespace CompositeDataServiceFramework.Server
             return serviceOperations.TryGetValue(name, out serviceOperation);
         }
 
-        public void AddResourceType(ResourceType type)
+        public bool TryResolveResourceSet(string name, out ResourceSet resourceSet, out CompositeDataSource source)
         {
-            type.SetReadOnly();
-            resourceTypes.Add(type.FullName, type);
+            resourceSet = null;
+            source = null;
+            if (resourceSets.TryGetValue(name, out resourceSet) == false)
+                return false;
+            if (resourceSetSources.TryGetValue(name, out source) == false)
+                return false;
+            return true;
         }
 
-        public void AddResourceSet(ResourceSet set)
+        public void AddResourceType(ResourceType type, CompositeDataSource source)
+        {
+            type.SetReadOnly();
+            resourceTypes.Add(type.Name, type);
+            resourceTypeSources.Add(type.FullName, source);
+        }
+
+        public void AddResourceSet(ResourceSet set, CompositeDataSource source)
         {
             set.SetReadOnly();
             resourceSets.Add(set.Name, set);
+            resourceSetSources.Add(set.Name, source);
         }
 
-        public void AddServiceOperation(ServiceOperation serviceOperation)
+        public void AddServiceOperation(ServiceOperation serviceOperation, CompositeDataSource source)
         {
           serviceOperation.SetReadOnly();
           serviceOperations.Add(serviceOperation.Name, serviceOperation);
+          serviceOperationSources.Add(serviceOperation.Name, source);
         }
 
         private Dictionary<string, ResourceType> resourceTypes = 
@@ -91,5 +105,14 @@ namespace CompositeDataServiceFramework.Server
 
         private Dictionary<string, ServiceOperation> serviceOperations =
             new Dictionary<string, ServiceOperation>();
+
+        private Dictionary<string, CompositeDataSource> resourceTypeSources
+            = new Dictionary<string, CompositeDataSource>();
+
+        private Dictionary<string, CompositeDataSource> resourceSetSources
+            = new Dictionary<string, CompositeDataSource>();
+
+        private Dictionary<string, CompositeDataSource> serviceOperationSources
+            = new Dictionary<string, CompositeDataSource>();
     }
 }
