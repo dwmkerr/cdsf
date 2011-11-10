@@ -37,9 +37,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceFramewo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test1", "Test1\Test1.csproj", "{EBC8F959-6552-4DE2-8D5D-4210B4FADE2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceFramework.Server.Tests", "CompositeDataServiceFramework.Server.Tests\CompositeDataServiceFramework.Server.Tests.csproj", "{C93138FA-F3C3-4D7A-A9D2-A539C4F3B365}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 9
+		SccNumberOfProjects = 10
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs33
 		SccLocalPath0 = .
@@ -75,6 +77,9 @@ Global
 		SccProjectTopLevelParentUniqueName8 = CompositeDataFramework.sln
 		SccProjectName8 = Test1
 		SccLocalPath8 = Test1
+		SccProjectUniqueName9 = CompositeDataServiceFramework.Server.Tests\\CompositeDataServiceFramework.Server.Tests.csproj
+		SccProjectName9 = CompositeDataServiceFramework.Server.Tests
+		SccLocalPath9 = CompositeDataServiceFramework.Server.Tests
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = CompositeDataFramework.vsmdi
@@ -168,6 +173,16 @@ Global
 		{EBC8F959-6552-4DE2-8D5D-4210B4FADE2B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EBC8F959-6552-4DE2-8D5D-4210B4FADE2B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EBC8F959-6552-4DE2-8D5D-4210B4FADE2B}.Release|x86.ActiveCfg = Release|Any CPU
+		{C93138FA-F3C3-4D7A-A9D2-A539C4F3B365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C93138FA-F3C3-4D7A-A9D2-A539C4F3B365}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C93138FA-F3C3-4D7A-A9D2-A539C4F3B365}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C93138FA-F3C3-4D7A-A9D2-A539C4F3B365}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C93138FA-F3C3-4D7A-A9D2-A539C4F3B365}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C93138FA-F3C3-4D7A-A9D2-A539C4F3B365}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C93138FA-F3C3-4D7A-A9D2-A539C4F3B365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C93138FA-F3C3-4D7A-A9D2-A539C4F3B365}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C93138FA-F3C3-4D7A-A9D2-A539C4F3B365}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C93138FA-F3C3-4D7A-A9D2-A539C4F3B365}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -77,6 +77,12 @@ namespace CompositeDataServiceFramework.Server
             resourceSets.Add(set.Name, set);
         }
 
+        public void AddServiceOperation(ServiceOperation serviceOperation)
+        {
+          serviceOperation.SetReadOnly();
+          serviceOperations.Add(serviceOperation.Name, serviceOperation);
+        }
+
         private Dictionary<string, ResourceType> resourceTypes = 
             new Dictionary<string, ResourceType>();
 

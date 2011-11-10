@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="08b39167-5675-47c7-9737-0999979b61df" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:53282/service.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="c5fe367a-eb52-44e6-b21d-6726c7bbd0fa" SourceId="1" SourceUrl="http://localhost:53282/service.svc" />
+  </Metadata>
+  <Extensions />
+  <Parameters>
+    <Parameter Name="UseDataServiceCollection" Value="true" />
+    <Parameter Name="Version" Value="2.0" />
+  </Parameters>
+</ReferenceGroup>

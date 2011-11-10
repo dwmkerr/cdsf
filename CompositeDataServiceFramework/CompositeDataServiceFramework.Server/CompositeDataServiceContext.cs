@@ -7,5 +7,10 @@ namespace CompositeDataServiceFramework.Server
 {
     public class CompositeDataServiceContext
     {
+      /// <summary>
+      /// The composite data sources.
+      /// </summary>
+      private List<CompositeDataSource> compositeDataSources =
+          new List<CompositeDataSource>();
     }
 }

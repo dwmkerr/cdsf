@@ -52,8 +52,9 @@
     <Compile Include="CompositeDataServiceQueryProvider.cs" />
     <Compile Include="CompositeDataSource.cs" />
     <Compile Include="EntityFrameworkDataSource.cs" />
-    <Compile Include="HttpHost.cs" />
+    <Compile Include="EntityToResourceMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WcfDataServiceMetadataLoader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

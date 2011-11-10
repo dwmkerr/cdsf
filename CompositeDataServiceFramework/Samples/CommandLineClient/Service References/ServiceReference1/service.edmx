@@ -1,0 +1,63 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="1.0">
+    <Schema Namespace="CompositeDataServiceContainerNamespace" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2007/05/edm">
+      <EntityType Name="Product">
+        <Key>
+          <PropertyRef Name="Id" />
+          <PropertyRef Name="Name" />
+          <PropertyRef Name="Price" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" Nullable="false" />
+        <Property Name="Price" Type="Edm.Decimal" Nullable="false" />
+      </EntityType>
+      <EntityType Name="Order">
+        <Key>
+          <PropertyRef Name="DateDelivered" />
+          <PropertyRef Name="DateOrdered" />
+          <PropertyRef Name="DateShipped" />
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="DateOrdered" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="DateShipped" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="DateDelivered" Type="Edm.DateTime" Nullable="false" />
+      </EntityType>
+      <EntityType Name="ProductLine">
+        <Key>
+          <PropertyRef Name="Id" />
+          <PropertyRef Name="Price" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Price" Type="Edm.Decimal" Nullable="false" />
+      </EntityType>
+      <EntityType Name="User">
+        <Key>
+          <PropertyRef Name="Id" />
+          <PropertyRef Name="Password" />
+          <PropertyRef Name="RoleId" />
+          <PropertyRef Name="Username" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Username" Type="Edm.String" Nullable="false" />
+        <Property Name="Password" Type="Edm.String" Nullable="false" />
+        <Property Name="RoleId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="Role">
+        <Key>
+          <PropertyRef Name="Id" />
+          <PropertyRef Name="Name" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" Nullable="false" />
+      </EntityType>
+      <EntityContainer Name="CompositeDataServiceContainer" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="Products" EntityType="CompositeDataServiceContainerNamespace.Product" />
+        <EntitySet Name="Orders" EntityType="CompositeDataServiceContainerNamespace.Order" />
+        <EntitySet Name="ProductLines" EntityType="CompositeDataServiceContainerNamespace.ProductLine" />
+        <EntitySet Name="Users" EntityType="CompositeDataServiceContainerNamespace.User" />
+        <EntitySet Name="Roles" EntityType="CompositeDataServiceContainerNamespace.Role" />
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

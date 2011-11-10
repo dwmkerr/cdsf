@@ -18,6 +18,23 @@ namespace CompositeDataServiceFramework.Server
     public class CompositeDataService : DataService<CompositeDataServiceContext>,
         IServiceProvider
     {
+      public CompositeDataService()
+      {
+        //  Create the metadata provider.
+        metadataProvider = GetMetadataProvider();
+
+        //  Create the query provider.
+        queryProvider = GetQueryProvider();
+      }
+
+      /// <summary>
+      /// Creates the data source.
+      /// </summary>
+      /// <returns></returns>
+      protected override CompositeDataServiceContext CreateDataSource()
+      {
+        return base.CreateDataSource();
+      }
         /// <summary>
         /// Gets the service object of the specified type.
         /// </summary>
@@ -49,12 +66,13 @@ namespace CompositeDataServiceFramework.Server
 
             //  Create the metadata provider.
             metadataProvider = new CompositeDataServiceMetadataProvider();
-            var productType = new ResourceType(
+           /*
+          var productType = new ResourceType(
         typeof(Product), // CLR type backing this Resource 
         ResourceTypeKind.EntityType, // Entity, ComplexType etc 
         null, // BaseType 
-        "Namespace", // Namespace 
-        "Product", // Name 
+        metadataProvider.ContainerNamespace, // Namespace 
+        "Product2", // Name 
         false // Abstract? 
     );
             var prodKey = new ResourceProperty(
@@ -79,7 +97,7 @@ namespace CompositeDataServiceFramework.Server
             metadataProvider.AddResourceType(productType);
             metadataProvider.AddResourceSet(
                new ResourceSet("Products", productType)
-            );
+            );*/
 
 
             return metadataProvider; 
@@ -101,14 +119,14 @@ namespace CompositeDataServiceFramework.Server
         public void AddDataSource(CompositeDataSource source)
         {
             //  Add the composite data source.
-            compositeDataSources.Add(source.Name, source);
+            compositeDataSources.Add(source);
         }
 
         public void Initialise()
         {
             //  Initialise each data source.
-            foreach (var dataSource in compositeDataSources.Values)
-                dataSource.Initialise();
+            foreach (var dataSource in compositeDataSources)
+                dataSource.Initialise(metadataProvider);
         }
 
         /// <summary>
@@ -124,7 +142,7 @@ namespace CompositeDataServiceFramework.Server
         /// <summary>
         /// The composite data sources.
         /// </summary>
-        private Dictionary<string, CompositeDataSource> compositeDataSources =
-            new Dictionary<string, CompositeDataSource>();
+        private List<CompositeDataSource> compositeDataSources =
+            new List<CompositeDataSource>();
     }
 }

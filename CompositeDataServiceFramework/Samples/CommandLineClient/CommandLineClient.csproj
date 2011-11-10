@@ -40,6 +40,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Services.Client" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
@@ -55,6 +56,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceReference1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.datasvcmap</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +81,7 @@
     <None Include="Service References\CompositeDataService\CompositeDataService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceReference1\service.edmx" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\CompositeDataService\" />
@@ -91,6 +98,17 @@
   <ItemGroup>
     <None Include="Service References\CompositeDataService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ServiceReferenceMetadataStorage Include="Service References\ServiceReference1\">
+      <Type>datasvcmap</Type>
+    </ServiceReferenceMetadataStorage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference1\Reference.datasvcmap">
+      <Generator>DataServiceClientGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
