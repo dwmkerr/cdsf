@@ -24,6 +24,9 @@ namespace CommandLineClient
 
             foreach (var userRole in exampleService.Roles)
                 Console.WriteLine(userRole.Name);
+
+            exampleService.AddToUsers(new Example.User() { Username = "name", Password = "password", RoleId = 1 });
+            exampleService.SaveChanges();
         }
     }
 }

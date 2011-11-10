@@ -8,54 +8,56 @@ using System.Data.Objects;
 
 namespace CompositeDataServiceFramework.Server
 {
-  public static class EntityToResourceMapping
-  {
-
-    public static ResourceType MapEntityType(EntityType entityType, ObjectContext context, string namespaceName)
+    public static class EntityToResourceMapping
     {
-      //  *** How do we get the CLR tye/
-      string parentNamespace = context.GetType().Namespace;
-      var ss = context.GetType().Assembly;
-      var type = (from t in ss.GetTypes() where t.Name == entityType.Name select t).FirstOrDefault(); 
 
-      //  Create the resource type.
-      ResourceType resourceType = new ResourceType(
-        type,
-        ResourceTypeKind.EntityType,
-        null, // base types not supported.
-        namespaceName,
-        entityType.Name,
-        entityType.Abstract
-        );
+        public static ResourceType MapEntityType(EntityType entityType, ObjectContext context, string namespaceName)
+        {
+            //  *** How do we get the CLR tye/
+            string parentNamespace = context.GetType().Namespace;
+            var ss = context.GetType().Assembly;
+            var type = (from t in ss.GetTypes() where t.Name == entityType.Name select t).FirstOrDefault();
 
-      //  Add each property.
-      //  ***TODO, keys, complex types.
-      bool first = true;
-      foreach (var propertyType in entityType.Properties)
-      {
-          ResourcePropertyKind kind = ResourcePropertyKind.Primitive;
-          if (first)
-          {
-              kind |= ResourcePropertyKind.Key;
-              first = false;
-          }
+            //  Create the resource type.
+            ResourceType resourceType = new ResourceType(
+              type,
+              ResourceTypeKind.EntityType,
+              null, // base types not supported.
+              namespaceName,
+              entityType.Name,
+              entityType.Abstract
+              );
 
-        var resourceProperty = new ResourceProperty(
-               propertyType.Name,
-               kind,
-               MapEdmType(propertyType.TypeUsage.EdmType)
-            );
-        resourceType.AddProperty(resourceProperty);
-      }
+            //  Add each property.
+            //  *** TODO ***
+            //  Complex types are not supported. We assume the first property is the key.
+            //  Navigation types are not supported.
+            bool first = true;
+            foreach (var propertyType in entityType.Properties)
+            {
+                ResourcePropertyKind kind = ResourcePropertyKind.Primitive;
+                if (first)
+                {
+                    kind |= ResourcePropertyKind.Key;
+                    first = false;
+                }
 
-      return resourceType;
+                var resourceProperty = new ResourceProperty(
+                       propertyType.Name,
+                       kind,
+                       MapEdmType(propertyType.TypeUsage.EdmType)
+                    );
+                resourceType.AddProperty(resourceProperty);
+            }
+            
+            return resourceType;
+        }
+
+        private static ResourceType MapEdmType(EdmType edmType)
+        {
+            if (edmType is PrimitiveType)
+                return ResourceType.GetPrimitiveResourceType(((PrimitiveType)edmType).ClrEquivalentType);
+            throw new Exception("Don't know type " + edmType.Name);
+        }
     }
-
-    private static ResourceType MapEdmType(EdmType edmType)
-    {
-      if (edmType is PrimitiveType)
-        return ResourceType.GetPrimitiveResourceType(((PrimitiveType)edmType).ClrEquivalentType);
-      throw new Exception("Don't know type " + edmType.Name);
-    }
-  }
 }
