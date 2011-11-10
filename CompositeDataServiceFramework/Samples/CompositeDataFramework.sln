@@ -7,22 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Data Layer", "1. Data La
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersDataModel", "OrdersDataModel\OrdersDataModel.csproj", "{F9192BCD-2177-4AD3-AE58-CE52F202D45B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Service Layer", "2. Service Layer", "{5E86C8AC-7BC1-410E-8DAC-4D8B7B908ED3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataService", "CompositeDataService\CompositeDataService.csproj", "{A7BF7B9E-EB4E-4BFA-B74C-073F34541DF8}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Client Layer", "3. Client Layer", "{EC15EF1A-0340-4234-A66E-6705A8276745}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineClient", "CommandLineClient\CommandLineClient.csproj", "{2E51F79E-3C82-4CC4-ADA5-C824C063A6ED}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A7BF7B9E-EB4E-4BFA-B74C-073F34541DF8} = {A7BF7B9E-EB4E-4BFA-B74C-073F34541DF8}
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Composite Data Service Framework", "4. Composite Data Service Framework", "{81501C90-F384-4D1C-B953-7F32F563D698}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSDFServer", "CSDFServer\CSDFServer.csproj", "{CC409166-65AF-4D02-B657-F875B68B0B58}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSDFServer.Tests", "CSDFServer.Tests\CSDFServer.Tests.csproj", "{183BDAE3-12C3-4EEE-A747-AE032C1D190B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EFE3B6A3-08B8-4142-B5F1-969278A05655}"
 	ProjectSection(SolutionItems) = preProject
@@ -41,7 +30,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceFramewo
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 10
+		SccNumberOfProjects = 7
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs33
 		SccLocalPath0 = .
@@ -53,33 +42,22 @@ Global
 		SccProjectTopLevelParentUniqueName2 = CompositeDataFramework.sln
 		SccProjectName2 = OrdersDataModel
 		SccLocalPath2 = OrdersDataModel
-		SccProjectUniqueName3 = CompositeDataService\\CompositeDataService.csproj
+		SccProjectUniqueName3 = CommandLineClient\\CommandLineClient.csproj
 		SccProjectTopLevelParentUniqueName3 = CompositeDataFramework.sln
-		SccProjectName3 = CompositeDataService
-		SccLocalPath3 = CompositeDataService
-		SccProjectUniqueName4 = CommandLineClient\\CommandLineClient.csproj
+		SccProjectName3 = CommandLineClient
+		SccLocalPath3 = CommandLineClient
+		SccProjectUniqueName4 = ..\\CompositeDataServiceFramework.Server\\CompositeDataServiceFramework.Server.csproj
 		SccProjectTopLevelParentUniqueName4 = CompositeDataFramework.sln
-		SccProjectName4 = CommandLineClient
-		SccLocalPath4 = CommandLineClient
-		SccProjectUniqueName5 = CSDFServer.Tests\\CSDFServer.Tests.csproj
+		SccProjectName4 = ../CompositeDataServiceFramework.Server
+		SccLocalPath4 = ..\\CompositeDataServiceFramework.Server
+		SccProjectUniqueName5 = Test1\\Test1.csproj
 		SccProjectTopLevelParentUniqueName5 = CompositeDataFramework.sln
-		SccProjectName5 = CSDFServer.Tests
-		SccLocalPath5 = CSDFServer.Tests
-		SccProjectUniqueName6 = CSDFServer\\CSDFServer.csproj
+		SccProjectName5 = Test1
+		SccLocalPath5 = Test1
+		SccProjectUniqueName6 = CompositeDataServiceFramework.Server.Tests\\CompositeDataServiceFramework.Server.Tests.csproj
 		SccProjectTopLevelParentUniqueName6 = CompositeDataFramework.sln
-		SccProjectName6 = CSDFServer
-		SccLocalPath6 = CSDFServer
-		SccProjectUniqueName7 = ..\\CompositeDataServiceFramework.Server\\CompositeDataServiceFramework.Server.csproj
-		SccProjectTopLevelParentUniqueName7 = CompositeDataFramework.sln
-		SccProjectName7 = ../CompositeDataServiceFramework.Server
-		SccLocalPath7 = ..\\CompositeDataServiceFramework.Server
-		SccProjectUniqueName8 = Test1\\Test1.csproj
-		SccProjectTopLevelParentUniqueName8 = CompositeDataFramework.sln
-		SccProjectName8 = Test1
-		SccLocalPath8 = Test1
-		SccProjectUniqueName9 = CompositeDataServiceFramework.Server.Tests\\CompositeDataServiceFramework.Server.Tests.csproj
-		SccProjectName9 = CompositeDataServiceFramework.Server.Tests
-		SccLocalPath9 = CompositeDataServiceFramework.Server.Tests
+		SccProjectName6 = CompositeDataServiceFramework.Server.Tests
+		SccLocalPath6 = CompositeDataServiceFramework.Server.Tests
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = CompositeDataFramework.vsmdi
@@ -113,16 +91,6 @@ Global
 		{F9192BCD-2177-4AD3-AE58-CE52F202D45B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F9192BCD-2177-4AD3-AE58-CE52F202D45B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F9192BCD-2177-4AD3-AE58-CE52F202D45B}.Release|x86.ActiveCfg = Release|Any CPU
-		{A7BF7B9E-EB4E-4BFA-B74C-073F34541DF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A7BF7B9E-EB4E-4BFA-B74C-073F34541DF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A7BF7B9E-EB4E-4BFA-B74C-073F34541DF8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A7BF7B9E-EB4E-4BFA-B74C-073F34541DF8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A7BF7B9E-EB4E-4BFA-B74C-073F34541DF8}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A7BF7B9E-EB4E-4BFA-B74C-073F34541DF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A7BF7B9E-EB4E-4BFA-B74C-073F34541DF8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A7BF7B9E-EB4E-4BFA-B74C-073F34541DF8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A7BF7B9E-EB4E-4BFA-B74C-073F34541DF8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{A7BF7B9E-EB4E-4BFA-B74C-073F34541DF8}.Release|x86.ActiveCfg = Release|Any CPU
 		{2E51F79E-3C82-4CC4-ADA5-C824C063A6ED}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{2E51F79E-3C82-4CC4-ADA5-C824C063A6ED}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{2E51F79E-3C82-4CC4-ADA5-C824C063A6ED}.Debug|Mixed Platforms.Build.0 = Debug|x86
@@ -133,26 +101,6 @@ Global
 		{2E51F79E-3C82-4CC4-ADA5-C824C063A6ED}.Release|Mixed Platforms.Build.0 = Release|x86
 		{2E51F79E-3C82-4CC4-ADA5-C824C063A6ED}.Release|x86.ActiveCfg = Release|x86
 		{2E51F79E-3C82-4CC4-ADA5-C824C063A6ED}.Release|x86.Build.0 = Release|x86
-		{CC409166-65AF-4D02-B657-F875B68B0B58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC409166-65AF-4D02-B657-F875B68B0B58}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC409166-65AF-4D02-B657-F875B68B0B58}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{CC409166-65AF-4D02-B657-F875B68B0B58}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{CC409166-65AF-4D02-B657-F875B68B0B58}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CC409166-65AF-4D02-B657-F875B68B0B58}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC409166-65AF-4D02-B657-F875B68B0B58}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CC409166-65AF-4D02-B657-F875B68B0B58}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{CC409166-65AF-4D02-B657-F875B68B0B58}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{CC409166-65AF-4D02-B657-F875B68B0B58}.Release|x86.ActiveCfg = Release|Any CPU
-		{183BDAE3-12C3-4EEE-A747-AE032C1D190B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{183BDAE3-12C3-4EEE-A747-AE032C1D190B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{183BDAE3-12C3-4EEE-A747-AE032C1D190B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{183BDAE3-12C3-4EEE-A747-AE032C1D190B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{183BDAE3-12C3-4EEE-A747-AE032C1D190B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{183BDAE3-12C3-4EEE-A747-AE032C1D190B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{183BDAE3-12C3-4EEE-A747-AE032C1D190B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{183BDAE3-12C3-4EEE-A747-AE032C1D190B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{183BDAE3-12C3-4EEE-A747-AE032C1D190B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{183BDAE3-12C3-4EEE-A747-AE032C1D190B}.Release|x86.ActiveCfg = Release|Any CPU
 		{C64E684D-EC1D-4996-92F4-346AD5148314}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C64E684D-EC1D-4996-92F4-346AD5148314}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C64E684D-EC1D-4996-92F4-346AD5148314}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -190,11 +138,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3C6A68B4-0F76-4125-9F7A-F3B3F8FF13F0} = {F9E96616-D988-4368-BCE8-34CB3C4BDAD8}
 		{F9192BCD-2177-4AD3-AE58-CE52F202D45B} = {F9E96616-D988-4368-BCE8-34CB3C4BDAD8}
-		{A7BF7B9E-EB4E-4BFA-B74C-073F34541DF8} = {5E86C8AC-7BC1-410E-8DAC-4D8B7B908ED3}
 		{2E51F79E-3C82-4CC4-ADA5-C824C063A6ED} = {EC15EF1A-0340-4234-A66E-6705A8276745}
 		{EBC8F959-6552-4DE2-8D5D-4210B4FADE2B} = {EC15EF1A-0340-4234-A66E-6705A8276745}
-		{CC409166-65AF-4D02-B657-F875B68B0B58} = {81501C90-F384-4D1C-B953-7F32F563D698}
 		{C64E684D-EC1D-4996-92F4-346AD5148314} = {81501C90-F384-4D1C-B953-7F32F563D698}
-		{183BDAE3-12C3-4EEE-A747-AE032C1D190B} = {85F8B207-AFC8-4404-AEAB-0CB553C6E4C8}
+		{C93138FA-F3C3-4D7A-A9D2-A539C4F3B365} = {85F8B207-AFC8-4404-AEAB-0CB553C6E4C8}
 	EndGlobalSection
 EndGlobal

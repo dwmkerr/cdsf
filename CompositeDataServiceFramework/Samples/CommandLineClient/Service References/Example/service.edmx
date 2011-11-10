@@ -4,18 +4,13 @@
       <EntityType Name="Product">
         <Key>
           <PropertyRef Name="Id" />
-          <PropertyRef Name="Name" />
-          <PropertyRef Name="Price" />
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Name" Type="Edm.String" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" Nullable="true" />
         <Property Name="Price" Type="Edm.Decimal" Nullable="false" />
       </EntityType>
       <EntityType Name="Order">
         <Key>
-          <PropertyRef Name="DateDelivered" />
-          <PropertyRef Name="DateOrdered" />
-          <PropertyRef Name="DateShipped" />
           <PropertyRef Name="Id" />
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
@@ -26,7 +21,6 @@
       <EntityType Name="ProductLine">
         <Key>
           <PropertyRef Name="Id" />
-          <PropertyRef Name="Price" />
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="Price" Type="Edm.Decimal" Nullable="false" />
@@ -34,22 +28,18 @@
       <EntityType Name="User">
         <Key>
           <PropertyRef Name="Id" />
-          <PropertyRef Name="Password" />
-          <PropertyRef Name="RoleId" />
-          <PropertyRef Name="Username" />
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Username" Type="Edm.String" Nullable="false" />
-        <Property Name="Password" Type="Edm.String" Nullable="false" />
+        <Property Name="Username" Type="Edm.String" Nullable="true" />
+        <Property Name="Password" Type="Edm.String" Nullable="true" />
         <Property Name="RoleId" Type="Edm.Int32" Nullable="false" />
       </EntityType>
       <EntityType Name="Role">
         <Key>
           <PropertyRef Name="Id" />
-          <PropertyRef Name="Name" />
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Name" Type="Edm.String" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" Nullable="true" />
       </EntityType>
       <EntityContainer Name="CompositeDataServiceContainer" m:IsDefaultEntityContainer="true">
         <EntitySet Name="Products" EntityType="CompositeDataServiceContainerNamespace.Product" />

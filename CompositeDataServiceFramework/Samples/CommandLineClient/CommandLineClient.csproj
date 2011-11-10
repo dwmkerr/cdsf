@@ -52,12 +52,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\CompositeDataService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\ServiceReference1\Reference.cs">
+    <Compile Include="Service References\Example\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.datasvcmap</DependentUpon>
@@ -68,46 +63,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Service References\CompositeDataService\CommandLineClient.CompositeDataService.CompositeType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CompositeDataService\CompositeDataService.wsdl" />
-    <None Include="Service References\CompositeDataService\CompositeDataService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CompositeDataService\CompositeDataService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CompositeDataService\CompositeDataService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceReference1\service.edmx" />
+    <None Include="Service References\Example\service.edmx" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\CompositeDataService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CompositeDataService\CompositeDataService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CompositeDataService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CompositeDataService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CompositeDataService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ServiceReferenceMetadataStorage Include="Service References\ServiceReference1\">
+    <ServiceReferenceMetadataStorage Include="Service References\Example\">
       <Type>datasvcmap</Type>
     </ServiceReferenceMetadataStorage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ServiceReference1\Reference.datasvcmap">
+    <None Include="Service References\Example\Reference.datasvcmap">
       <Generator>DataServiceClientGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

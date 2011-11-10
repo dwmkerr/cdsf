@@ -64,6 +64,7 @@
     <None Include="App.Config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CreateData.sql" />
     <Content Include="UsersDataModel.edmx.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

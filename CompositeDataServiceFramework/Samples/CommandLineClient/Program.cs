@@ -11,61 +11,19 @@ namespace CommandLineClient
     {
         static void Main(string[] args)
         {
-            while (true)
-            {
-                string url = "http://localhost:1212/";
+            Example.CompositeDataServiceContainer exampleService = new Example.CompositeDataServiceContainer(new Uri("http://localhost:53282/service.svc"));
 
-                //  Write the output.
-                Console.WriteLine("Enter the Request (relative to ' " + url + "')");
-                Console.Write("Request: ");
-                string requestString = url + Console.ReadLine();
+            foreach (var product in exampleService.Products)
+                Console.WriteLine(product.Name);
 
-                Console.WriteLine("Response to: " + requestString);
+            foreach (var productLine in exampleService.ProductLines)
+                Console.WriteLine(productLine.Price);
 
-                CompositeDataService.CompositeDataServiceClient client = new CompositeDataService.CompositeDataServiceClient();
-                var data = client.GetData(1);
+            foreach (var user in exampleService.Users)
+                Console.WriteLine(user.Username);
 
-                // used to build entire input
-                StringBuilder sb = new StringBuilder();
-
-                // used on each read operation
-                byte[] buf = new byte[8192];
-
-                // prepare the web page we will be asking for
-                HttpWebRequest request = (HttpWebRequest)
-                    WebRequest.Create(requestString);
-
-                // execute the request
-                HttpWebResponse response = (HttpWebResponse)
-                    request.GetResponse();
-
-                // we will read data via the response stream
-                Stream resStream = response.GetResponseStream();
-
-                string tempString = null;
-                int count = 0;
-
-                do
-                {
-                    // fill the buffer with data
-                    count = resStream.Read(buf, 0, buf.Length);
-
-                    // make sure we read some data
-                    if (count != 0)
-                    {
-                        // translate from bytes to ASCII text
-                        tempString = Encoding.ASCII.GetString(buf, 0, count);
-
-                        // continue building the string
-                        sb.Append(tempString);
-                    }
-                }
-                while (count > 0); // any more data to read?
-
-                // print out page source
-                Console.WriteLine(sb.ToString());
-                client.Close();
-            }
+            foreach (var userRole in exampleService.Roles)
+                Console.WriteLine(userRole.Name);
         }
     }
 }
