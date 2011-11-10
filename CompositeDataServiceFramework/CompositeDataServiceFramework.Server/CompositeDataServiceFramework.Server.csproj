@@ -50,6 +50,7 @@
     <Compile Include="CompositeDataServiceContext.cs" />
     <Compile Include="CompositeDataServiceMetadataProvider.cs" />
     <Compile Include="CompositeDataServiceQueryProvider.cs" />
+    <Compile Include="CompositeDataServiceUpdateProvider.cs" />
     <Compile Include="CompositeDataSource.cs" />
     <Compile Include="EntityFrameworkDataSource.cs" />
     <Compile Include="EntityToResourceMapping.cs" />

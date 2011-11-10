@@ -25,6 +25,9 @@ namespace CompositeDataServiceFramework.Server
 
         //  Create the query provider.
         queryProvider = GetQueryProvider(metadataProvider);
+
+          //    Create the update provider.
+        updateProvider = GetUpdateProvider(metadataProvider, queryProvider);
       }
 
       /// <summary>
@@ -54,6 +57,10 @@ namespace CompositeDataServiceFramework.Server
             //  Support IDataServiceQueryProvider.
             if (serviceType == typeof(IDataServiceQueryProvider))
                 return GetQueryProvider(metadataProvider);
+
+            //  Support IDataServiceUpdateProvider.
+            if (serviceType == typeof(IDataServiceUpdateProvider))
+                return GetUpdateProvider(metadataProvider, queryProvider);
 
             return null;
         }
@@ -116,6 +123,19 @@ namespace CompositeDataServiceFramework.Server
             return queryProvider;
         }
 
+        private CompositeDataServiceUpdateProvider GetUpdateProvider(CompositeDataServiceMetadataProvider metadataProvider, CompositeDataServiceQueryProvider queryProvider)
+        {
+            //  Return the update provider if it already exists.
+            if (updateProvider != null)
+                return updateProvider;
+
+            //  Create the update provider.
+            updateProvider = new CompositeDataServiceUpdateProvider(metadataProvider, queryProvider);
+
+            //  Return the query provider.
+            return updateProvider;
+        }
+
         public void AddDataSource(CompositeDataSource source)
         {
             //  Add the composite data source.
@@ -138,6 +158,11 @@ namespace CompositeDataServiceFramework.Server
         /// The query provider.
         /// </summary>
         private CompositeDataServiceQueryProvider queryProvider;
+
+        /// <summary>
+        /// The update provider.
+        /// </summary>
+        private CompositeDataServiceUpdateProvider updateProvider;
 
         /// <summary>
         /// The composite data sources.
