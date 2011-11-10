@@ -58,12 +58,6 @@
     <Compile Include="MetadataAggregatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CSDFServer\CSDFServer.csproj">
-      <Project>{CC409166-65AF-4D02-B657-F875B68B0B58}</Project>
-      <Name>CSDFServer</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
