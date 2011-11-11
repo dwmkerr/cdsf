@@ -52,6 +52,9 @@
     <Compile Include="CompositeDataServiceQueryProvider.cs" />
     <Compile Include="CompositeDataServiceUpdateProvider.cs" />
     <Compile Include="CompositeDataSource.cs" />
+    <Compile Include="CompositeResourceSet.cs" />
+    <Compile Include="CompositeResourceType.cs" />
+    <Compile Include="CompositeServiceOperation.cs" />
     <Compile Include="EntityFrameworkDataSource.cs" />
     <Compile Include="EntityToResourceMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

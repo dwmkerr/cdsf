@@ -13,12 +13,5 @@ namespace CompositeDataServiceFramework.Server
       /// </summary>
       /// <param name="metadataProvider">The metadata provider.</param>
         public abstract void Initialise(CompositeDataServiceMetadataProvider metadataProvider);
-
-        /// <summary>
-        /// Gets the query root for a resource set.
-        /// </summary>
-        /// <param name="resourceSet">The resource set.</param>
-        /// <returns></returns>
-        public abstract IQueryable GetQueryRootForResourceSet(ResourceSet resourceSet);
     }
 }

@@ -19,6 +19,7 @@ namespace Test1
           var ordersDM = new OrdersModelContainer();
           var usersDS = new UsersDataService();
           var usersDM = new UsersDataModelContainer();
+
             AddDataSource(new EntityFrameworkDataSource<OrdersModelContainer>(ordersDS, ordersDM, new Uri("http://localhost:53282/OrdersDataService.svc")));
             AddDataSource(new EntityFrameworkDataSource<UsersDataModelContainer>(usersDS, usersDM, new Uri("http://localhost:53282/UsersDataService.svc")));
 
