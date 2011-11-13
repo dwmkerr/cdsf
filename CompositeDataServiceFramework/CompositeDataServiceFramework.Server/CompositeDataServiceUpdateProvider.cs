@@ -35,9 +35,13 @@ namespace CompositeDataServiceFramework.Server
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Cancels a change to the data.
+        /// </summary>
         public void ClearChanges()
         {
-            throw new NotImplementedException();
+            //  Clear the queued actions.
+            queuedActions.Clear();
         }
 
         /// <summary>
@@ -72,11 +76,14 @@ namespace CompositeDataServiceFramework.Server
 
         public void DeleteResource(object targetResource)
         {
-            //  TODO: Find the owner of the resource.
-            //  TODO: Queue the delete action.
+            var resourceSet = (from c in metadataProvider.ResourceSets
+                              where c.ResourceType.Name == targetResource.GetType().Name
+                              select c).FirstOrDefault();
+            CompositeResourceSet compositeResourceSet;
+            metadataProvider.TryResolveCompositeResourceSet(resourceSet.Name,
+                out compositeResourceSet);
 
-
-            throw new NotImplementedException();
+            queuedActions.Add(() => compositeResourceSet.DoDeleteResource(targetResource));
         }
 
         public object GetResource(IQueryable query, string fullTypeName)
@@ -152,12 +159,17 @@ namespace CompositeDataServiceFramework.Server
             return resource; 
         }
 
+        /// <summary>
+        /// Saves all the changes that have been made by using the <see cref="T:System.Data.Services.IUpdatable"/> APIs.
+        /// </summary>
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            //  Perform each action.
+            foreach (var queuedAction in queuedActions)
+                queuedAction();
         }
 
-        public void SetReference(object targetResource, string propertyName, object propertyValue)
+          public void SetReference(object targetResource, string propertyName, object propertyValue)
         {
             throw new NotImplementedException();
         }
