@@ -7,6 +7,7 @@ using System.Data.Services;
 using System.IO;
 using System.Data.Services.Providers;
 using System.Reflection;
+using System.Data.Metadata.Edm;
 
 namespace CompositeDataServiceFramework.Server
 {
@@ -41,7 +42,7 @@ namespace CompositeDataServiceFramework.Server
                 //    Create the composite resource type.
                 CompositeResourceType compositeResourceType = new CompositeResourceType()
                 {
-                    ResourceType = EntityToResourceMapping.MapEntityType(entityType, context, metadataProvider.ContainerNamespace),
+                    ResourceType = MapEntityType(entityType, context, metadataProvider.ContainerNamespace),
                     DataSource = this,
                     Name = entityType.Name
                 };
@@ -73,9 +74,9 @@ namespace CompositeDataServiceFramework.Server
                 MethodInfo miDeleteObject = pi.GetValue(context, null).GetType().GetMethod("DeleteObject");
 
                 //  The Create Resource function must return an instance of the resource type.
-                compositeResourceSet.CreateResourceAction += 
-                    () => 
-                    { 
+                compositeResourceSet.CreateResourceAction +=
+                    () =>
+                    {
                         return Activator.CreateInstance(compositeResourceSet.ResourceSet.ResourceType.InstanceType);
                     };
 
@@ -84,7 +85,7 @@ namespace CompositeDataServiceFramework.Server
                     (resourceType, resourceValue) =>
                     {
                         //  Invoke the 'AddObject' function.
-                        miAddObject.Invoke(compositeResourceSet.QueryRoot, new object[] {resourceValue});
+                        miAddObject.Invoke(compositeResourceSet.QueryRoot, new object[] { resourceValue });
                     };
 
                 //  The Delete Resource function must delete the resource.
@@ -98,7 +99,125 @@ namespace CompositeDataServiceFramework.Server
                 //    Add the resource set.
                 metadataProvider.AddCompositeResourceSet(compositeResourceSet);
             }
+
+            //  Go through each entity type create the navigation properties.
+            foreach (var entityType in metadataLoader.EntityTypes)
+            {
+                MapEntityAssociations(metadataProvider, entityType, context);
+            }
+            
+            //  Freeze the metadata.
+            metadataProvider.Freeze();
         }
+
+
+        private ResourceType MapEdmType(EdmType edmType)
+        {
+            if (edmType is PrimitiveType)
+                return ResourceType.GetPrimitiveResourceType(((PrimitiveType)edmType).ClrEquivalentType);
+            throw new Exception("Don't know type " + edmType.Name);
+        }
+
+        private void MapEntityAssociations(CompositeDataServiceMetadataProvider metadataProvider, EntityType entityType, ObjectContext context)
+        {
+            //  Go through each navigation property.
+            foreach (var propertyType in entityType.NavigationProperties)
+            {
+                //  Get the from and too properties.
+                CompositeResourceType fromType, toType;
+                metadataProvider.TryResolveCompositeResourceType(propertyType.FromEndMember.GetEntityType().Name,
+                    out fromType);
+                metadataProvider.TryResolveCompositeResourceType(propertyType.ToEndMember.GetEntityType().Name,
+                    out toType);
+
+                //  Create the from and too properties.
+                ResourceProperty fromProperty = new ResourceProperty(
+                    propertyType.FromEndMember.Name,
+                    propertyType.FromEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many ? ResourcePropertyKind.ResourceSetReference : ResourcePropertyKind.ResourceReference,
+                    fromType.ResourceType);
+                ResourceProperty toProperty = new ResourceProperty(
+                    propertyType.ToEndMember.Name,
+                    propertyType.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many ? ResourcePropertyKind.ResourceSetReference : ResourcePropertyKind.ResourceReference,
+                    toType.ResourceType);
+
+                //  If we've already got the property (likely, as each association
+                //  is two way) we skip it.
+                if(fromType.ResourceType.Properties.Count( 
+                    (rt) => { return rt.Name == toProperty.Name; } ) > 0 ||
+                    toType.ResourceType.Properties.Count(
+                    (rt) => { return rt.Name == fromProperty.Name; }) > 0)
+                    continue;
+
+                //  Add the from and to properties.
+                toType.ResourceType.AddProperty(fromProperty);
+                fromType.ResourceType.AddProperty(toProperty);
+
+                //  Get the from and to sets.
+                ResourceSet fromSet, toSet;
+                fromSet = (from crs in metadataProvider.ResourceSets where crs.ResourceType.Name == fromType.Name select crs).First();
+                toSet = (from crs in metadataProvider.ResourceSets where crs.ResourceType.Name == toType.Name select crs).First();
+                
+                //  Create the association.
+                ResourceAssociationSet associationSet = new ResourceAssociationSet(
+                    propertyType.Name,
+                    new ResourceAssociationSetEnd(fromSet, fromType.ResourceType, toProperty),
+                    new ResourceAssociationSetEnd(toSet, toType.ResourceType, fromProperty));
+                fromProperty.CustomState = associationSet;
+                toProperty.CustomState = associationSet;
+
+                //  Add the association set.
+                metadataProvider.AddCompositeResourceAssociationSet(
+                    new CompositeResourceAssociationSet()
+                    {
+                        Name = associationSet.Name,
+                        ResourceAssociationSet = associationSet,
+                        DataSource = this
+                    });
+            }
+        }
+
+        private ResourceType MapEntityType(EntityType entityType, ObjectContext context, string namespaceName)
+        {
+            //  *** How do we get the CLR tye/
+            string parentNamespace = context.GetType().Namespace;
+            var ss = context.GetType().Assembly;
+            var type = (from t in ss.GetTypes() where t.Name == entityType.Name select t).FirstOrDefault();
+
+            //  Create the resource type.
+            ResourceType resourceType = new ResourceType(
+              type,
+              ResourceTypeKind.EntityType,
+              null, // base types not supported.
+              namespaceName,
+              entityType.Name,
+              entityType.Abstract
+              );
+
+            //  Add each property.
+            //  *** TODO ***
+            //  Complex types are not supported. We assume the first property is the key.
+            //  Navigation types are not supported.
+            bool first = true;
+            foreach (var propertyType in entityType.Properties)
+            {
+                ResourcePropertyKind kind = ResourcePropertyKind.Primitive;
+                if (first)
+                {
+                    kind |= ResourcePropertyKind.Key;
+                    first = false;
+                }
+
+                var resourceProperty = new ResourceProperty(
+                       propertyType.Name,
+                       kind,
+                       MapEdmType(propertyType.TypeUsage.EdmType)
+                    );
+                resourceType.AddProperty(resourceProperty);
+            }
+
+            return resourceType;
+        }
+
 
         private DataService<T> dataService;
         private T context;

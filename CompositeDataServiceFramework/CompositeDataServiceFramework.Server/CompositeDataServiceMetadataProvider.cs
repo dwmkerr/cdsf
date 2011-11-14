@@ -50,7 +50,8 @@ namespace CompositeDataServiceFramework.Server
         /// </returns>
         public ResourceAssociationSet GetResourceAssociationSet(ResourceSet resourceSet, ResourceType resourceType, ResourceProperty resourceProperty)
         {
-            throw new NotImplementedException();
+            //  We store the resource association set in the custom property.
+            return resourceProperty.CustomState as ResourceAssociationSet;
         }
 
         /// <summary>
@@ -179,8 +180,7 @@ namespace CompositeDataServiceFramework.Server
             //  Success.
             return true; 
         }
-
-
+        
         /// <summary>
         /// Tries to get the composite resource set.
         /// </summary>
@@ -190,6 +190,17 @@ namespace CompositeDataServiceFramework.Server
         public bool TryResolveCompositeResourceSet(string name, out CompositeResourceSet compositeResourceSet)
         {
             return resourceSets.TryGetValue(name, out compositeResourceSet);
+        }
+
+        /// <summary>
+        /// Tries to get the composite resource association set.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="compositeResourceAssociationSet">The composite resource association set.</param>
+        /// <returns></returns>
+        public bool TryResolveCompositeResourceAssociationSet(string name, out CompositeResourceAssociationSet compositeResourceAssociationSet)
+        {
+            return resourceAssociationSets.TryGetValue(name, out compositeResourceAssociationSet);
         }
 
         /// <summary>
@@ -220,7 +231,7 @@ namespace CompositeDataServiceFramework.Server
         /// <param name="type">The type.</param>
         public void AddCompositeResourceType(CompositeResourceType type)
         {
-            type.ResourceType.SetReadOnly();
+            //type.ResourceType.SetReadOnly();
             resourceTypes.Add(type.Name, type);
         }
 
@@ -230,8 +241,17 @@ namespace CompositeDataServiceFramework.Server
         /// <param name="set">The set.</param>
         public void AddCompositeResourceSet(CompositeResourceSet set)
         {
-            set.ResourceSet.SetReadOnly();
+            //set.ResourceSet.SetReadOnly();
             resourceSets.Add(set.Name, set);
+        }
+
+        /// <summary>
+        /// Adds the resource association set.
+        /// </summary>
+        /// <param name="set">The set.</param>
+        public void AddCompositeResourceAssociationSet(CompositeResourceAssociationSet set)
+        {
+            resourceAssociationSets.Add(set.Name, set);
         }
 
         /// <summary>
@@ -240,8 +260,22 @@ namespace CompositeDataServiceFramework.Server
         /// <param name="operation">The operation.</param>
         public void AddCompositeServiceOperation(CompositeServiceOperation operation)
         {
-            operation.ServiceOperation.SetReadOnly();
+            //operation.ServiceOperation.SetReadOnly();
             serviceOperations.Add(operation.Name, operation);
+        }
+
+        public void Freeze()
+        {
+            
+            foreach(var rt in resourceTypes.Values.Where((rt) => { return rt.ResourceType.IsReadOnly == false; }))
+                rt.ResourceType.SetReadOnly();
+
+            foreach (var rs in resourceSets.Values.Where((rs) => { return rs.ResourceSet.IsReadOnly == false; }))
+                rs.ResourceSet.SetReadOnly();
+
+            foreach (var so in serviceOperations.Values.Where((so) => { return so.ServiceOperation.IsReadOnly == false; }))
+                so.ServiceOperation.SetReadOnly();
+             
         }
 
         /// <summary>
@@ -255,6 +289,12 @@ namespace CompositeDataServiceFramework.Server
         /// </summary>
         private Dictionary<string, CompositeResourceSet> resourceSets =
             new Dictionary<string, CompositeResourceSet>();
+
+        /// <summary>
+        /// The composite resource association sets.
+        /// </summary>
+        private Dictionary<string, CompositeResourceAssociationSet> resourceAssociationSets =
+            new Dictionary<string, CompositeResourceAssociationSet>();
 
         /// <summary>
         /// The composite service operations.
