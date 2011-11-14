@@ -8,10 +8,14 @@ namespace CompositeDataServiceFramework.Server
 {
     public class CompositeDataServiceUpdateProvider : IDataServiceUpdateProvider
     {
+
+
         public CompositeDataServiceUpdateProvider( 
+          CompositeDataServiceContext context,
            CompositeDataServiceMetadataProvider metadataProvider, 
            CompositeDataServiceQueryProvider queryProvider) 
         {
+          this.context = context;
             this.metadataProvider = metadataProvider;
             this.queryProvider = queryProvider;
         }
@@ -21,6 +25,7 @@ namespace CompositeDataServiceFramework.Server
             return queryProvider.CurrentDataSource as CompositeDataServiceContext;
         }
 
+        private CompositeDataServiceContext context;
         private CompositeDataServiceMetadataProvider metadataProvider;
         private CompositeDataServiceQueryProvider queryProvider;
         private List<Action> queuedActions = new List<Action>();
@@ -42,6 +47,9 @@ namespace CompositeDataServiceFramework.Server
         {
             //  Clear the queued actions.
             queuedActions.Clear();
+
+          //  Clear the context.
+            context.ClearChanges();
         }
 
         /// <summary>
@@ -167,6 +175,9 @@ namespace CompositeDataServiceFramework.Server
             //  Perform each action.
             foreach (var queuedAction in queuedActions)
                 queuedAction();
+
+          //  Save the context.
+            context.SaveChanges();
         }
 
           public void SetReference(object targetResource, string propertyName, object propertyValue)

@@ -13,5 +13,8 @@ namespace CompositeDataServiceFramework.Server
       /// </summary>
       /// <param name="metadataProvider">The metadata provider.</param>
         public abstract void Initialise(CompositeDataServiceMetadataProvider metadataProvider);
+
+        public abstract void SaveChanges();
+        public abstract void CancelChanges();
     }
 }

@@ -36,7 +36,7 @@ namespace CompositeDataServiceFramework.Server
       /// <returns></returns>
       protected override CompositeDataServiceContext CreateDataSource()
       {
-        return base.CreateDataSource();
+        return context;
       }
         /// <summary>
         /// Gets the service object of the specified type.
@@ -130,7 +130,7 @@ namespace CompositeDataServiceFramework.Server
                 return updateProvider;
 
             //  Create the update provider.
-            updateProvider = new CompositeDataServiceUpdateProvider(metadataProvider, queryProvider);
+            updateProvider = new CompositeDataServiceUpdateProvider(context, metadataProvider, queryProvider);
 
             //  Return the query provider.
             return updateProvider;
@@ -140,6 +140,7 @@ namespace CompositeDataServiceFramework.Server
         {
             //  Add the composite data source.
             compositeDataSources.Add(source);
+            context.AddDataSource(source);
         }
 
         public void Initialise()
@@ -148,6 +149,8 @@ namespace CompositeDataServiceFramework.Server
             foreach (var dataSource in compositeDataSources)
                 dataSource.Initialise(metadataProvider);
         }
+
+        private CompositeDataServiceContext context = new CompositeDataServiceContext();
 
         /// <summary>
         /// The Metadata Provider.

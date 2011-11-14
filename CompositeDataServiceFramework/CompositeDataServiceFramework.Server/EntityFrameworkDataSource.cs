@@ -19,6 +19,16 @@ namespace CompositeDataServiceFramework.Server
           this.serviceUri = serviceUri;
         }
 
+        public override void CancelChanges()
+        {
+          //  *** TODO cancel changes?
+        }
+
+        public override void SaveChanges()
+        {
+          context.SaveChanges();
+        }
+
         public override void Initialise(CompositeDataServiceMetadataProvider metadataProvider)
         {
             //  Load the metadata.
