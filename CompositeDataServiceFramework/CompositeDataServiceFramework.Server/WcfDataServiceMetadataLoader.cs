@@ -94,7 +94,7 @@ namespace CompositeDataServiceFramework.Server
       {
         List<EntitySet> sets = new List<EntitySet>();
         foreach (var container in EntityContainers)
-          sets.AddRange(container.BaseEntitySets.OfType < EntitySet>());
+          sets.AddRange(container.BaseEntitySets.OfType<EntitySet>());
         return sets;
       }
     }
@@ -102,6 +102,11 @@ namespace CompositeDataServiceFramework.Server
     public IEnumerable<EntityType> EntityTypes
     {
       get { return edmItemCollection.OfType<EntityType>(); }
+    }
+
+    public IEnumerable<AssociationType> AssociationTypes
+    {
+        get { return edmItemCollection.OfType<AssociationType>(); }
     }
   }
 }

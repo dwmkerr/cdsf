@@ -13,6 +13,7 @@ namespace CommandLineClient
         {
             Example.CompositeDataServiceContainer exampleService = new Example.CompositeDataServiceContainer(new Uri("http://localhost:53282/service.svc"));
 
+            /*
             foreach (var product in exampleService.Products)
                 Console.WriteLine(product.Name + " (" + product.Price + ")");
 
@@ -29,7 +30,7 @@ namespace CommandLineClient
             exampleService.SaveChanges();
 
             exampleService.AddToProducts(new Example.Product() { Name = "New Product", Price = 45.5M });
-            exampleService.SaveChanges();
+            exampleService.SaveChanges();*/
         }
     }
 }

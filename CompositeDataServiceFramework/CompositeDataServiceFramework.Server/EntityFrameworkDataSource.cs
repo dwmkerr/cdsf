@@ -100,10 +100,16 @@ namespace CompositeDataServiceFramework.Server
                 metadataProvider.AddCompositeResourceSet(compositeResourceSet);
             }
 
-            //  Go through each entity type create the navigation properties.
+            //  Go through each entity type and create the navigation properties.
             foreach (var entityType in metadataLoader.EntityTypes)
             {
-                MapEntityAssociations(metadataProvider, entityType, context);
+                CreateNavigationProperties(metadataProvider, entityType, context);
+            }
+
+            //  Go through each entity type create the associations.
+            foreach (var associationType in metadataLoader.AssociationTypes)
+            {
+                CreateAssociation(metadataProvider, associationType, context);
             }
             
             //  Freeze the metadata.
@@ -118,62 +124,66 @@ namespace CompositeDataServiceFramework.Server
             throw new Exception("Don't know type " + edmType.Name);
         }
 
-        private void MapEntityAssociations(CompositeDataServiceMetadataProvider metadataProvider, EntityType entityType, ObjectContext context)
+        private void CreateNavigationProperties(CompositeDataServiceMetadataProvider metadataProvider, EntityType entityType, ObjectContext context)
         {
             //  Go through each navigation property.
-            foreach (var propertyType in entityType.NavigationProperties)
+            foreach (var navigationProperty in entityType.NavigationProperties)
             {
-                //  Get the from and too properties.
                 CompositeResourceType fromType, toType;
-                metadataProvider.TryResolveCompositeResourceType(propertyType.FromEndMember.GetEntityType().Name,
-                    out fromType);
-                metadataProvider.TryResolveCompositeResourceType(propertyType.ToEndMember.GetEntityType().Name,
-                    out toType);
+                metadataProvider.TryResolveCompositeResourceType(entityType.Name, out fromType);
+                metadataProvider.TryResolveCompositeResourceType(navigationProperty.ToEndMember.GetEntityType().Name, out toType);
 
-                //  Create the from and too properties.
-                ResourceProperty fromProperty = new ResourceProperty(
-                    propertyType.FromEndMember.Name,
-                    propertyType.FromEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many ? ResourcePropertyKind.ResourceSetReference : ResourcePropertyKind.ResourceReference,
-                    fromType.ResourceType);
-                ResourceProperty toProperty = new ResourceProperty(
-                    propertyType.ToEndMember.Name,
-                    propertyType.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many ? ResourcePropertyKind.ResourceSetReference : ResourcePropertyKind.ResourceReference,
+                //  Create the resource property.
+                ResourceProperty resourceProperty = new ResourceProperty(
+                    navigationProperty.Name,
+                    navigationProperty.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many 
+                    ? ResourcePropertyKind.ResourceSetReference : ResourcePropertyKind.ResourceReference,
                     toType.ResourceType);
 
-                //  If we've already got the property (likely, as each association
-                //  is two way) we skip it.
-                if(fromType.ResourceType.Properties.Count( 
-                    (rt) => { return rt.Name == toProperty.Name; } ) > 0 ||
-                    toType.ResourceType.Properties.Count(
-                    (rt) => { return rt.Name == fromProperty.Name; }) > 0)
-                    continue;
+                //  Tag the resource property with the association name.
+                resourceProperty.CustomState = navigationProperty.RelationshipType.Name;
 
-                //  Add the from and to properties.
-                toType.ResourceType.AddProperty(fromProperty);
-                fromType.ResourceType.AddProperty(toProperty);
-
-                //  Get the from and to sets.
-                ResourceSet fromSet, toSet;
-                fromSet = (from crs in metadataProvider.ResourceSets where crs.ResourceType.Name == fromType.Name select crs).First();
-                toSet = (from crs in metadataProvider.ResourceSets where crs.ResourceType.Name == toType.Name select crs).First();
-                
-                //  Create the association.
-                ResourceAssociationSet associationSet = new ResourceAssociationSet(
-                    propertyType.Name,
-                    new ResourceAssociationSetEnd(fromSet, fromType.ResourceType, toProperty),
-                    new ResourceAssociationSetEnd(toSet, toType.ResourceType, fromProperty));
-                fromProperty.CustomState = associationSet;
-                toProperty.CustomState = associationSet;
-
-                //  Add the association set.
-                metadataProvider.AddCompositeResourceAssociationSet(
-                    new CompositeResourceAssociationSet()
-                    {
-                        Name = associationSet.Name,
-                        ResourceAssociationSet = associationSet,
-                        DataSource = this
-                    });
+                //  Add the resource property.
+                fromType.ResourceType.AddProperty(resourceProperty);
             }
+        }
+
+        private IEnumerable<ResourceProperty> GetAssociationEnds(CompositeDataServiceMetadataProvider metadataProvider, string assocationName)
+        {
+            foreach (var resourceType in metadataProvider.Types)
+            {
+                foreach(var resourceProperty in resourceType.Properties.Where((rp) => { return rp.CustomState == assocationName; } ))
+                   yield return resourceProperty;
+            }
+        }
+
+        private void CreateAssociation(CompositeDataServiceMetadataProvider metadataProvider, AssociationType associationType, ObjectContext context)
+        {
+            //  *** TODO Each navigation property is tagged with associationType.Name, so we should be able to get it like that.
+            IEnumerable<ResourceProperty> props = GetAssociationEnds(metadataProvider, associationType.Name);
+            var end1 = props.ElementAt(0);
+            var end2 = props.ElementAt(1);
+            
+            //  Get the from and to sets.
+            ResourceSet end1Set = (from crs in metadataProvider.ResourceSets where crs.ResourceType.Name == end1.ResourceType.Name select crs).First();
+            ResourceSet end2Set = (from crs in metadataProvider.ResourceSets where crs.ResourceType.Name == end2.ResourceType.Name select crs).First();
+
+            //  Create the association.
+            ResourceAssociationSet associationSet = new ResourceAssociationSet(
+                associationType.Name,
+                new ResourceAssociationSetEnd(end1Set, end1.ResourceType, end2),
+                new ResourceAssociationSetEnd(end2Set, end2.ResourceType, end1));
+            end1.CustomState = associationSet;
+            end2.CustomState = associationSet;
+
+            //  Add the association set.
+            metadataProvider.AddCompositeResourceAssociationSet(
+                new CompositeResourceAssociationSet()
+                {
+                    Name = associationSet.Name,
+                    ResourceAssociationSet = associationSet,
+                    DataSource = this
+                });
         }
 
         private ResourceType MapEntityType(EntityType entityType, ObjectContext context, string namespaceName)
@@ -194,9 +204,7 @@ namespace CompositeDataServiceFramework.Server
               );
 
             //  Add each property.
-            //  *** TODO ***
-            //  Complex types are not supported. We assume the first property is the key.
-            //  Navigation types are not supported.
+            //  *** TODO Complex types are not supported. We assume the first property is the key.
             bool first = true;
             foreach (var propertyType in entityType.Properties)
             {
@@ -214,7 +222,7 @@ namespace CompositeDataServiceFramework.Server
                     );
                 resourceType.AddProperty(resourceProperty);
             }
-
+            
             return resourceType;
         }
 
