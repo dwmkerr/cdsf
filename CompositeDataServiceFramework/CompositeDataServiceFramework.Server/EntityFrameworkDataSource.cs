@@ -152,7 +152,7 @@ namespace CompositeDataServiceFramework.Server
         {
             foreach (var resourceType in metadataProvider.Types)
             {
-                foreach(var resourceProperty in resourceType.Properties.Where((rp) => { return rp.CustomState == assocationName; } ))
+              foreach(var resourceProperty in resourceType.Properties.Where((rp) => { return rp.CustomState is string ? (string)rp.CustomState == assocationName : false; } ))
                    yield return resourceProperty;
             }
         }
@@ -161,20 +161,34 @@ namespace CompositeDataServiceFramework.Server
         {
             //  *** TODO Each navigation property is tagged with associationType.Name, so we should be able to get it like that.
             IEnumerable<ResourceProperty> props = GetAssociationEnds(metadataProvider, associationType.Name);
-            var end1 = props.ElementAt(0);
-            var end2 = props.ElementAt(1);
+            var end1Property = props.ElementAt(0);
+            var end2Property = (props.Count() < 2) ? null : props.ElementAt(1);
+
+          //  Get resource types.
+            CompositeResourceType resourceType1, resourceType2;
+            metadataProvider.TryResolveCompositeResourceType(associationType.AssociationEndMembers[0].Name, out resourceType1);
+            metadataProvider.TryResolveCompositeResourceType(associationType.AssociationEndMembers[1].Name, out resourceType2);
+
+          //  switch.
+            if (resourceType1.Name == end1Property.ResourceType.Name)
+            {
+              var temp = resourceType1;
+              resourceType1 = resourceType2;
+              resourceType2 = temp;
+            }
             
             //  Get the from and to sets.
-            ResourceSet end1Set = (from crs in metadataProvider.ResourceSets where crs.ResourceType.Name == end1.ResourceType.Name select crs).First();
-            ResourceSet end2Set = (from crs in metadataProvider.ResourceSets where crs.ResourceType.Name == end2.ResourceType.Name select crs).First();
+            ResourceSet end1Set = (from crs in metadataProvider.ResourceSets where crs.ResourceType.Name == resourceType1.ResourceType.Name select crs).First();
+            ResourceSet end2Set = (from crs in metadataProvider.ResourceSets where crs.ResourceType.Name == resourceType2.ResourceType.Name select crs).First();
 
             //  Create the association.
             ResourceAssociationSet associationSet = new ResourceAssociationSet(
                 associationType.Name,
-                new ResourceAssociationSetEnd(end1Set, end1.ResourceType, end2),
-                new ResourceAssociationSetEnd(end2Set, end2.ResourceType, end1));
-            end1.CustomState = associationSet;
-            end2.CustomState = associationSet;
+                new ResourceAssociationSetEnd(end1Set, resourceType1.ResourceType, end1Property),
+                new ResourceAssociationSetEnd(end2Set, resourceType2.ResourceType, end2Property));
+            end1Property.CustomState = associationSet;
+            if(end2Property != null)
+              end2Property.CustomState = associationSet;
 
             //  Add the association set.
             metadataProvider.AddCompositeResourceAssociationSet(

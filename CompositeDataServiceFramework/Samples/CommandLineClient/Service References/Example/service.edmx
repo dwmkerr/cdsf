@@ -1,6 +1,33 @@
 ﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
   <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="1.0">
     <Schema Namespace="CompositeDataServiceContainerNamespace" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2007/05/edm">
+      <EntityType Name="Product">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" Nullable="true" />
+        <Property Name="Price" Type="Edm.Decimal" Nullable="false" />
+      </EntityType>
+      <EntityType Name="Order">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="DateOrdered" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="DateShipped" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="DateDelivered" Type="Edm.DateTime" Nullable="false" />
+        <NavigationProperty Name="ProductLines" Relationship="CompositeDataServiceContainerNamespace.Order_ProductLines_ProductLine_Order" FromRole="Order_ProductLines" ToRole="ProductLine_Order" />
+      </EntityType>
+      <EntityType Name="ProductLine">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Price" Type="Edm.Decimal" Nullable="false" />
+        <NavigationProperty Name="Product" Relationship="CompositeDataServiceContainerNamespace.ProductLine_Product" FromRole="ProductLine" ToRole="Product" />
+        <NavigationProperty Name="Order" Relationship="CompositeDataServiceContainerNamespace.Order_ProductLines_ProductLine_Order" FromRole="ProductLine_Order" ToRole="Order_ProductLines" />
+      </EntityType>
       <EntityType Name="User">
         <Key>
           <PropertyRef Name="Id" />
@@ -9,7 +36,7 @@
         <Property Name="Username" Type="Edm.String" Nullable="true" />
         <Property Name="Password" Type="Edm.String" Nullable="true" />
         <Property Name="RoleId" Type="Edm.Int32" Nullable="false" />
-        <NavigationProperty Name="Role" Relationship="CompositeDataServiceContainerNamespace.Role_Users_User_Role" FromRole="User_Role" ToRole="Role_Users" />
+        <NavigationProperty Name="Role" Relationship="CompositeDataServiceContainerNamespace.User_Role_Role_Users" FromRole="User_Role" ToRole="Role_Users" />
       </EntityType>
       <EntityType Name="Role">
         <Key>
@@ -17,18 +44,37 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="Name" Type="Edm.String" Nullable="true" />
-        <NavigationProperty Name="Users" Relationship="CompositeDataServiceContainerNamespace.Role_Users_User_Role" FromRole="Role_Users" ToRole="User_Role" />
+        <NavigationProperty Name="Users" Relationship="CompositeDataServiceContainerNamespace.User_Role_Role_Users" FromRole="Role_Users" ToRole="User_Role" />
       </EntityType>
-      <Association Name="Role_Users_User_Role">
-        <End Role="Role_Users" Type="CompositeDataServiceContainerNamespace.Role" Multiplicity="0..1" />
+      <Association Name="Order_ProductLines_ProductLine_Order">
+        <End Role="Order_ProductLines" Type="CompositeDataServiceContainerNamespace.Order" Multiplicity="0..1" />
+        <End Role="ProductLine_Order" Type="CompositeDataServiceContainerNamespace.ProductLine" Multiplicity="*" />
+      </Association>
+      <Association Name="ProductLine_Product">
+        <End Role="ProductLine" Type="CompositeDataServiceContainerNamespace.ProductLine" Multiplicity="*" />
+        <End Role="Product" Type="CompositeDataServiceContainerNamespace.Product" Multiplicity="0..1" />
+      </Association>
+      <Association Name="User_Role_Role_Users">
         <End Role="User_Role" Type="CompositeDataServiceContainerNamespace.User" Multiplicity="*" />
+        <End Role="Role_Users" Type="CompositeDataServiceContainerNamespace.Role" Multiplicity="0..1" />
       </Association>
       <EntityContainer Name="CompositeDataServiceContainer" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="Products" EntityType="CompositeDataServiceContainerNamespace.Product" />
+        <EntitySet Name="Orders" EntityType="CompositeDataServiceContainerNamespace.Order" />
+        <EntitySet Name="ProductLines" EntityType="CompositeDataServiceContainerNamespace.ProductLine" />
         <EntitySet Name="Users" EntityType="CompositeDataServiceContainerNamespace.User" />
         <EntitySet Name="Roles" EntityType="CompositeDataServiceContainerNamespace.Role" />
-        <AssociationSet Name="RoleUser" Association="CompositeDataServiceContainerNamespace.Role_Users_User_Role">
-          <End Role="Role_Users" EntitySet="Roles" />
+        <AssociationSet Name="OrderProductLine" Association="CompositeDataServiceContainerNamespace.Order_ProductLines_ProductLine_Order">
+          <End Role="Order_ProductLines" EntitySet="Orders" />
+          <End Role="ProductLine_Order" EntitySet="ProductLines" />
+        </AssociationSet>
+        <AssociationSet Name="ProductLineProduct" Association="CompositeDataServiceContainerNamespace.ProductLine_Product">
+          <End Role="ProductLine" EntitySet="ProductLines" />
+          <End Role="Product" EntitySet="Products" />
+        </AssociationSet>
+        <AssociationSet Name="RoleUser" Association="CompositeDataServiceContainerNamespace.User_Role_Role_Users">
           <End Role="User_Role" EntitySet="Users" />
+          <End Role="Role_Users" EntitySet="Roles" />
         </AssociationSet>
       </EntityContainer>
     </Schema>
