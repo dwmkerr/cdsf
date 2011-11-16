@@ -11,9 +11,9 @@ using UsersDataModel;
 
 namespace Test1
 {
-    public class service : CompositeDataServiceFramework.Server.CompositeDataService
+    public class CompositeDataService : CompositeDataServiceFramework.Server.CompositeDataService
     {
-        public service()
+        public CompositeDataService()
         {
           var ordersDS = new OrdersDataService();
           var ordersDM = new OrdersModelContainer();
