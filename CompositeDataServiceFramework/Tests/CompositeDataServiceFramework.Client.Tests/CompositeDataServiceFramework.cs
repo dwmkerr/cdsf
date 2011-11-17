@@ -13,7 +13,8 @@ namespace CompositeDataServiceFramework.Client.Tests
         private static CompositeDataServiceContainer dataService =
             new CompositeDataServiceContainer(new Uri("http://localhost:53282/CompositeDataService.svc"));
 
-        readonly string testUserName = "Test User";
+        readonly string testUserName1 = "Test User 1";
+        readonly string testUserName2 = "Test User 2";
         readonly string testPassword = "Test Password";
         readonly string testRoleName = "Test Role";
 
@@ -23,16 +24,14 @@ namespace CompositeDataServiceFramework.Client.Tests
         [TestMethod]
         public void CanResetTestData()
         {
-            //  Delete each test user.
-            var users = (from u in dataService.Users where u.Username == testUserName select u).ToList();
-            foreach (var user in users)
-                dataService.DeleteObject(user);
-            dataService.SaveChanges();
-
             //  Delete each test role.
-            var roles = (from r in dataService.Roles where r.Name == testRoleName select r).ToList();
+            var roles = (from r in dataService.Roles.Expand("Users") where r.Name == testRoleName select r).ToList();
             foreach (var role in roles)
-                dataService.DeleteObject(role);
+            {
+              foreach (var user in role.Users)
+                dataService.DeleteObject(user);
+              dataService.DeleteObject(role);
+            }
             dataService.SaveChanges();
         }
 
@@ -59,12 +58,15 @@ namespace CompositeDataServiceFramework.Client.Tests
         }
 
         [TestMethod]
-        public void CanAddUserToRole()
+        public void CanAddUserLinkedToRole()
         {
+          //  Try and get the role.
+          testRole1 = (from r in dataService.Roles where r.Name == testRoleName select r).First();
+
             //  Create the user.
             testUser1 = new User()
             {
-                Username = testUserName,
+                Username = testUserName1,
                 Password = testPassword,
                 Role = testRole1
             };
@@ -79,17 +81,59 @@ namespace CompositeDataServiceFramework.Client.Tests
             dataService.SaveChanges();
 
             //  Try and get the user.
-            var bouncedUser1 = (from r in dataService.Users where r.Username == testUserName select r).First();
+            var bouncedUser1 = (from r in dataService.Users where r.Username == testUserName1 select r).First();
 
             //  Check the result.
             Assert.AreEqual(testUser1.Username, bouncedUser1.Username);
             Assert.AreEqual(testUser1.Password, bouncedUser1.Password);
             Assert.AreEqual(testUser1.Role.Name, bouncedUser1.Role.Name);
         }
+
+        [TestMethod]
+        public void CanAddUserToRole()
+        {
+          //  Try and get the role.
+          testRole1 = (from r in dataService.Roles where r.Name == testRoleName select r).First();
+
+          //  Create a new user.
+          User newUser = new User()
+          {
+            Username = testUserName2, 
+            Password = "PasswordUserToRole"
+          };
+          
+          //  Add a user to the role.
+          dataService.AddRelatedObject(testRole1, "Users", newUser);
+          
+          //  Save the changes.
+          dataService.SaveChanges();
+          dataService =
+             new CompositeDataServiceContainer(new Uri("http://localhost:53282/CompositeDataService.svc"));
+
+          //  Try and get the user.
+          var bouncedUser1 = (from r in dataService.Users.Expand("Role") where r.Username == testUserName2 select r).First();
+
+          //  Check the result.
+          Assert.AreEqual(newUser.Username, bouncedUser1.Username);
+          Assert.AreEqual(newUser.Password, bouncedUser1.Password);
+          Assert.AreEqual(testRoleName, bouncedUser1.Role.Name);
+        }
+
+        [TestMethod]
+        public void CanGetUserSpecificProperty()
+        {
+          //  Try and get a user password.
+          var user = (from u in dataService.Users where u.Username == testUserName1 && u.Password == testPassword select u).First();
+
+          Assert.AreEqual(user.Password, testPassword);
+        }
         
         [TestMethod]
         public void CanDeleteUser()
         {
+          //  Try and get the user.
+          testUser1 = (from r in dataService.Users where r.Username == testUserName1 select r).First();
+
             //  Delete the user.
             dataService.DeleteObject(testUser1);
 
@@ -97,20 +141,21 @@ namespace CompositeDataServiceFramework.Client.Tests
             dataService.SaveChanges();
 
             //  Make sure there is no user.
-            Assert.IsTrue((from r in dataService.Users where r.Username == testUserName select r).FirstOrDefault() == null);
+            Assert.IsTrue((from r in dataService.Users where r.Username == testUserName1 select r).FirstOrDefault() == null);
         }
 
         [TestMethod]
         public void CanDeleteRole()
         {
-            //  Delete the user.
-            dataService.DeleteObject(testRole1);
-
-            //  Save the changes.
-            dataService.SaveChanges();
-
-            //  Make sure there is no role.
-            Assert.IsTrue((from r in dataService.Roles where r.Name == testRoleName select r).FirstOrDefault() == null);
+          //  Delete each test role.
+          var roles = (from r in dataService.Roles.Expand("Users") where r.Name == testRoleName select r).ToList();
+          foreach (var role in roles)
+          {
+            foreach (var user in role.Users)
+              dataService.DeleteObject(user);
+            dataService.DeleteObject(role);
+          }
+          dataService.SaveChanges();
         }
     }
 }

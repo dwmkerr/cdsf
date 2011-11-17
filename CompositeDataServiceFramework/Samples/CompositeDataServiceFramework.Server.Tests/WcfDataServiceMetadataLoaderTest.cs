@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace CompositeDataServiceFramework.Server.Tests
 {
-    
-    
-    /// <summary>
-    ///This is a test class for WcfDataServiceMetadataLoaderTest and is intended
-    ///to contain all WcfDataServiceMetadataLoaderTest Unit Tests
-    ///</summary>
+
+
+  /// <summary>
+  /// This is a test class for WcfDataServiceMetadataLoaderTest and is intended
+  /// to contain all WcfDataServiceMetadataLoaderTest Unit Tests
+  /// </summary>
   [TestClass()]
   public class WcfDataServiceMetadataLoaderTest
   {
@@ -71,7 +71,7 @@ namespace CompositeDataServiceFramework.Server.Tests
     [TestMethod()]
     public void LoadMetadataTest()
     {
-      WcfDataServiceMetadataLoader target = new WcfDataServiceMetadataLoader(); // TODO: Initialize to an appropriate value
+      WcfDataServiceMetadataLoader target = new WcfDataServiceMetadataLoader();
       Uri serviceUri = new Uri("http://localhost:53282/UsersDataService.svc");
       target.LoadMetadata(serviceUri);
 

@@ -22,7 +22,6 @@ namespace CompositeDataServiceFramework.Server
 
         public override void CancelChanges()
         {
-          //  *** TODO cancel changes?
         }
 
         public override void SaveChanges()
@@ -46,6 +45,26 @@ namespace CompositeDataServiceFramework.Server
                     DataSource = this,
                     Name = entityType.Name
                 };
+
+              //  Create Add relationship.
+                compositeResourceType.AddReferenceToCollectionAction +=
+                  (resource, propertyName, resourceToAdd) =>
+                  {
+                    PropertyInfo pi = compositeResourceType.ResourceType.InstanceType.GetProperty(propertyName);
+                    var propertyValue = pi.GetValue(resource, null);
+                    MethodInfo mi = propertyValue.GetType().GetMethod("Add");
+                    mi.Invoke(propertyValue, new object[] { resourceToAdd });
+                  };
+
+                //  Create Remove relationship.
+                compositeResourceType.RemoveReferenceFromCollectionAction +=
+                  (resource, propertyName, resourceToRemove) =>
+                  {
+                    PropertyInfo pi = compositeResourceType.ResourceType.InstanceType.GetProperty(propertyName);
+                    var propertyValue = pi.GetValue(resource, null);
+                    MethodInfo mi = propertyValue.GetType().GetMethod("Remove");
+                    mi.Invoke(propertyValue, new object[] { resourceToRemove });
+                  };
 
                 //    Add the composite resource type.
                 metadataProvider.AddCompositeResourceType(compositeResourceType);
@@ -159,7 +178,6 @@ namespace CompositeDataServiceFramework.Server
 
         private void CreateAssociation(CompositeDataServiceMetadataProvider metadataProvider, AssociationType associationType, ObjectContext context)
         {
-            //  *** TODO Each navigation property is tagged with associationType.Name, so we should be able to get it like that.
             IEnumerable<ResourceProperty> props = GetAssociationEnds(metadataProvider, associationType.Name);
             var end1Property = props.ElementAt(0);
             var end2Property = (props.Count() < 2) ? null : props.ElementAt(1);

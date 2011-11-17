@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>Composite Data Service</Name>
+    <Description>A Composite Data Service exposes a number of WCF Data Services as a single data service.</Description>
+    <Icon>CompositeDataServiceTemplate.ico</Icon>
+    <TemplateID>ff368a74-275e-4d2c-b6f2-2a695a79415a</TemplateID>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>4.0</RequiredFrameworkVersion>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+    <DefaultName>CompositeDataService.svc</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+		<References>
+			<Reference>
+				<Assembly>System</Assembly>
+			</Reference>
+		</References>
+    <ProjectItem ReplaceParameters="true">CompositeDataService.svc</ProjectItem>
+    <ProjectItem ReplaceParameters="true">CompositeDataService.svc.cs</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

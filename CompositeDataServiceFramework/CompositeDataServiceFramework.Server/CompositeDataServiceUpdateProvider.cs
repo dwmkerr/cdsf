@@ -54,15 +54,11 @@ namespace CompositeDataServiceFramework.Server
         /// <param name="resourceToBeAdded">The opaque object representing the resource to be added.</param>
         public void AddReferenceToCollection(object targetResource, string propertyName, object resourceToBeAdded)
         {
-          queuedActions.Add(() => DoAddReferenceToCollection(
-                           targetResource,
-                           propertyName,
-                           resourceToBeAdded));
-        }
-
-        private void DoAddReferenceToCollection(object targetResource, string propertyName, object resourceToBeAdded)
-        {
-          //  *** TODO
+          //  Find the composite resource set.
+          CompositeResourceType compositeResourceType;
+          if (metadataProvider.TryResolveCompositeResourceType(targetResource.GetType().Name, out compositeResourceType) == false)
+            throw new Exception("Failed to resolve resource type.");
+          queuedActions.Add(() => compositeResourceType.DoAddReferenceToCollection(targetResource, propertyName, resourceToBeAdded));
         }
 
         /// <summary>
@@ -189,15 +185,11 @@ namespace CompositeDataServiceFramework.Server
         /// <param name="resourceToBeRemoved">The property value that needs to be removed.</param>
         public void RemoveReferenceFromCollection(object targetResource, string propertyName, object resourceToBeRemoved)
         {
-          queuedActions.Add(() => DoRemoveReferenceFromCollection(
-                            targetResource,
-                            propertyName,
-                            resourceToBeRemoved));
-        }
-
-        private void DoRemoveReferenceFromCollection(object targetResource, string propertyName, object resourceToBeRemoved)
-        {
-          //  *** TODO
+          //  Find the composite resource set.
+          CompositeResourceType compositeResourceType;
+          if (metadataProvider.TryResolveCompositeResourceType(targetResource.GetType().Name, out compositeResourceType) == false)
+            throw new Exception("Failed to resolve resource type.");
+          queuedActions.Add(() => compositeResourceType.DoRemoveReferenceFromCollection(targetResource, propertyName, resourceToBeRemoved));
         }
 
         public object ResetResource(object resource)
@@ -245,22 +237,24 @@ namespace CompositeDataServiceFramework.Server
                            propertyValue)); 
         }
 
-          private void DoSetReference(
-       object targetResource,
-       string propertyName,
-       object propertyValue)
+          /// <summary>
+          /// Actually sets the reference.
+          /// </summary>
+          /// <param name="targetResource">The target resource.</param>
+          /// <param name="propertyName">Name of the property.</param>
+          /// <param name="propertyValue">The property value.</param>
+          private void DoSetReference(object targetResource, string propertyName, object propertyValue)
           {
             // Get the resource type. 
             var targetType = targetResource.GetType();
 
+            //  Get the property.
             var targetTypeProperty = targetType
                 .GetProperties()
                 .Single(p => p.Name == propertyName);
 
-            // actually set the reference ! 
-            targetTypeProperty.SetPropertyValueOnTarget(
-               targetResource, propertyValue
-            );
+            //  Set the reference.
+            targetTypeProperty.SetPropertyValueOnTarget(targetResource, propertyValue);
           }
           
 
@@ -282,8 +276,15 @@ namespace CompositeDataServiceFramework.Server
             );
         }
 
+        /// <summary>
+        /// Actually sets the value.
+        /// </summary>
+        /// <param name="targetResource">The target resource.</param>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="propertyValue">The property value.</param>
         private void DoSetValue(object targetResource, string propertyName, object propertyValue)
         {
+          //  Set the value.
             targetResource
                .GetType()
                .GetProperties()

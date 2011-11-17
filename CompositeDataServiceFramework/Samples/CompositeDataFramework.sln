@@ -30,9 +30,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceFramewo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceFramework.Client.Tests", "..\Tests\CompositeDataServiceFramework.Client.Tests\CompositeDataServiceFramework.Client.Tests.csproj", "{6F754B2F-4160-4D21-BBA9-E32980F98C58}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{33F901DD-35E3-42B1-B8F1-56952C1A6AAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceTemplate", "..\Extensions\CompositeDataServiceTemplate\CompositeDataServiceTemplate.csproj", "{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 8
+		SccNumberOfProjects = 9
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs33
 		SccLocalPath0 = .
@@ -64,6 +68,10 @@ Global
 		SccProjectTopLevelParentUniqueName7 = CompositeDataFramework.sln
 		SccProjectName7 = ../Tests/CompositeDataServiceFramework.Client.Tests
 		SccLocalPath7 = ..\\Tests\\CompositeDataServiceFramework.Client.Tests
+		SccProjectUniqueName8 = ..\\Extensions\\CompositeDataServiceTemplate\\CompositeDataServiceTemplate.csproj
+		SccProjectTopLevelParentUniqueName8 = CompositeDataFramework.sln
+		SccProjectName8 = ../Extensions/CompositeDataServiceTemplate
+		SccLocalPath8 = ..\\Extensions\\CompositeDataServiceTemplate
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = CompositeDataFramework.vsmdi
@@ -147,6 +155,16 @@ Global
 		{6F754B2F-4160-4D21-BBA9-E32980F98C58}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6F754B2F-4160-4D21-BBA9-E32980F98C58}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6F754B2F-4160-4D21-BBA9-E32980F98C58}.Release|x86.ActiveCfg = Release|Any CPU
+		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -159,5 +177,6 @@ Global
 		{C64E684D-EC1D-4996-92F4-346AD5148314} = {81501C90-F384-4D1C-B953-7F32F563D698}
 		{C93138FA-F3C3-4D7A-A9D2-A539C4F3B365} = {85F8B207-AFC8-4404-AEAB-0CB553C6E4C8}
 		{6F754B2F-4160-4D21-BBA9-E32980F98C58} = {85F8B207-AFC8-4404-AEAB-0CB553C6E4C8}
+		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB} = {33F901DD-35E3-42B1-B8F1-56952C1A6AAB}
 	EndGlobalSection
 EndGlobal

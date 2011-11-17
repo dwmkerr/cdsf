@@ -19,7 +19,7 @@ namespace Test1
           var ordersDM = new OrdersModelContainer();
           var usersDS = new UsersDataService();
           var usersDM = new UsersDataModelContainer();
-
+          
             AddDataSource(new EntityFrameworkDataSource<OrdersModelContainer>(ordersDS, ordersDM, new Uri("http://localhost:53282/OrdersDataService.svc")));
             AddDataSource(new EntityFrameworkDataSource<UsersDataModelContainer>(usersDS, usersDM, new Uri("http://localhost:53282/UsersDataService.svc")));
 
@@ -29,7 +29,6 @@ namespace Test1
         // This method is called only once to initialize service-wide policies.
         public static void InitializeService(DataServiceConfiguration config)
         {
-            // TODO: set rules to indicate which entity sets and service operations are visible, updatable, etc.
             // Examples:
             config.SetEntitySetAccessRule("*", EntitySetRights.All);
             // config.SetServiceOperationAccessRule("MyServiceOperation", ServiceOperationRights.All);

@@ -6,6 +6,9 @@ using System.Data.Services.Providers;
 
 namespace CompositeDataServiceFramework.Server
 {
+  public delegate void AddReferenceToCollectionDelegate(object resource, string propertyName, object resourceToBeAdded);
+  public delegate void RemoveReferenceFromCollectionDelegate(object resource, string propertyName, object resourceToBeRemoved);
+
     public class CompositeResourceType
     {
         public string Name
@@ -25,5 +28,24 @@ namespace CompositeDataServiceFramework.Server
             get;
             set;
         }
+
+        public void DoAddReferenceToCollection(object resource, string propertyName, object resourceToBeAdded)
+        {
+          var action = AddReferenceToCollectionAction;
+          if (action != null)
+            action(resource, propertyName, resourceToBeAdded);
+        }
+
+        public void DoRemoveReferenceFromCollection(object resource, string propertyName, object resourceToBeRemoved)
+        {
+          var action = RemoveReferenceFromCollectionAction;
+          if (action != null)
+            action(resource, propertyName, resourceToBeRemoved);
+        }
+
+
+        public event AddReferenceToCollectionDelegate AddReferenceToCollectionAction;
+
+        public event RemoveReferenceFromCollectionDelegate RemoveReferenceFromCollectionAction;
     }
 }
