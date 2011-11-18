@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>Composite Data Service Client</Name>
+    <Description>A Composite Data Service Client is a class that interfaces with a Composite Data Service.</Description>
+    <Icon>CompositeDataServiceClientItemTemplate.ico</Icon>
+    <TemplateID>4555d857-5201-479a-95de-1f214ec019ee</TemplateID>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>4.0</RequiredFrameworkVersion>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+    <DefaultName>CompositeDataServiceClient.cs</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+		<References>
+			<Reference>
+				<Assembly>System</Assembly>
+			</Reference>
+		</References>
+
+    <ProjectItem ReplaceParameters="true">CompositeDataServiceClient.cs</ProjectItem>
+
+    <WizardExtension>
+      <Assembly>CompositeDataServiceWizards, Version=1.0.0.0, Culture=Neutral, PublicKeyToken=4bd814366dfdd64f</Assembly>
+      <FullClassName>CompositeDataServiceWizards.CompositeDataServiceClientItemTemplateWizard</FullClassName>
+    </WizardExtension>
+    
+  </TemplateContent>
+</VSTemplate>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>Composite Data Service Client Project</Name>
+    <Description>A Composite Data Service Client Project is a class library that interfaces with a Composite Data Service. This library can be used by multiple projects to connect to a Composite Data Service.</Description>
+    <Icon>CompositeDataServiceClient.ico</Icon>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>4.0</RequiredFrameworkVersion>
+    <SortOrder>1000</SortOrder>
+    <TemplateID>fdc42c82-bbdd-4863-a3c0-25c7e192f50b</TemplateID>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>CompositeDataServiceClient</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="ProjectTemplate.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">Class1.cs</ProjectItem>
+    </Project>
+    <WizardExtension>
+      <Assembly>CompositeDataServiceWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4bd814366dfdd64f</Assembly>
+      <FullClassName>CompositeDataServiceWizards.CompositeDataServiceClientProjectTemplateWizard</FullClassName>
+    </WizardExtension>
+  </TemplateContent>
+</VSTemplate>

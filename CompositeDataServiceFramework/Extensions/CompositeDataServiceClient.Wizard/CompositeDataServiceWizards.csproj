@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C64E684D-EC1D-4996-92F4-346AD5148314}</ProjectGuid>
+    <ProjectGuid>{FEFA67E6-967B-4294-9BFE-149E0659653C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CompositeDataServiceFramework.Server</RootNamespace>
-    <AssemblyName>CompositeDataServiceFramework.Server</AssemblyName>
+    <RootNamespace>CompositeDataServiceWizards</RootNamespace>
+    <AssemblyName>CompositeDataServiceWizards</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -41,10 +41,14 @@
     <AssemblyOriginatorKeyFile>CompositeDataServiceFrameworkKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TemplateWizardInterface, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.Services" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,20 +56,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompositeDataService.cs" />
-    <Compile Include="CompositeDataServiceContext.cs" />
-    <Compile Include="CompositeDataServiceMetadataProvider.cs" />
-    <Compile Include="CompositeDataServiceQueryProvider.cs" />
-    <Compile Include="CompositeDataServiceUpdateProvider.cs" />
-    <Compile Include="CompositeDataSource.cs" />
-    <Compile Include="CompositeResourceSet.cs" />
-    <Compile Include="CompositeResourceType.cs" />
-    <Compile Include="CompositeServiceOperation.cs" />
-    <Compile Include="CompositeResourceAssociationSet.cs" />
-    <Compile Include="EntityFrameworkDataSource.cs" />
+    <Compile Include="CompositeDataServiceClientConfigurationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompositeDataServiceClientConfigurationForm.Designer.cs">
+      <DependentUpon>CompositeDataServiceClientConfigurationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompositeDataServiceClientProjectTemplateWizard.cs" />
+    <Compile Include="CompositeDataServiceClientItemTemplateWizard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyInfoExtensions.cs" />
-    <Compile Include="WcfDataServiceMetadataLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CompositeDataServiceFrameworkKey.pfx" />

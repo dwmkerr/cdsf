@@ -23,8 +23,8 @@ namespace $rootnamespace$
           
           //  Add each data service.
           //  Example:
-          //AddDataSource(new EntityFrameworkDataSource<OrdersModelContainer>(dataService1, dataModel1, new Uri("http://localhost/DataService1.svc")));
-          //AddDataSource(new EntityFrameworkDataSource<OrdersModelContainer>(dataService2, dataModel2, new Uri("http://localhost/DataService2.svc")));
+          //AddDataSource(new EntityFrameworkDataSource<DataModelContainer1>(dataService1, dataModel1, new Uri("http://localhost/DataService1.svc")));
+          //AddDataSource(new EntityFrameworkDataSource<DataModelContainer2>(dataService2, dataModel2, new Uri("http://localhost/DataService2.svc")));
 
           // Initialise the data service.
           Initialise();
