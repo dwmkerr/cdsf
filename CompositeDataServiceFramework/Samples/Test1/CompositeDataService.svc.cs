@@ -31,7 +31,7 @@ namespace Test1
         {
             // Examples:
             config.SetEntitySetAccessRule("*", EntitySetRights.All);
-            // config.SetServiceOperationAccessRule("MyServiceOperation", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("*", ServiceOperationRights.All);
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V2;
         }
     }

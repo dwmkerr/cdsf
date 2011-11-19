@@ -208,6 +208,32 @@ namespace CompositeDataServiceFramework.Server
         }
 
         /// <summary>
+        /// Tries the type of the resolve composite resource set for resource type.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="compositeResourceSet">The composite resource set.</param>
+        /// <returns></returns>
+        public bool TryResolveCompositeResourceSetForResourceType(string name, out CompositeResourceSet compositeResourceSet)
+        {
+            //  We haven't found the resource set.
+            compositeResourceSet = null;
+
+            //  Go through each resource set.
+            foreach (var resourceSet in resourceSets.Values)
+            {
+                if (resourceSet.ResourceTypeName == name)
+                {
+                    //  We've found the resource set.
+                    compositeResourceSet = resourceSet;
+                    return true;
+                }
+            }
+
+            //  Failed to find the resource set.
+            return false;
+        }
+
+        /// <summary>
         /// Tries to get the composite resource association set.
         /// </summary>
         /// <param name="name">The name.</param>

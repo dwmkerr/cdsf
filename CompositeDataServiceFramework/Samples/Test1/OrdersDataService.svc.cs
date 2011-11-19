@@ -16,7 +16,7 @@ namespace Test1
         {
             // Examples:
             config.SetEntitySetAccessRule("*", EntitySetRights.All);
-            config.SetServiceOperationAccessRule("GetProductsStartingWith", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("*", ServiceOperationRights.All);
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V2;
         }
 
@@ -25,5 +25,28 @@ namespace Test1
         {
             return from p in CurrentDataSource.Products where p.Name.StartsWith(startingWith) select p;
         }
+
+        [WebGet]
+        public void FunctionReturningVoid(int a, int b)
+        {
+        }
+
+        [WebGet]
+        public IEnumerable<Product> FunctionReturningEnumerable()
+        {
+            return CurrentDataSource.Products;
+        }
+
+        /*[WebGet]
+        public Product FunctionReturningEntity()
+        {
+            return (from p in CurrentDataSource.Products orderby p.Price descending select p).FirstOrDefault();
+        }*/
+
+        /*[WebGet]
+        public string FunctionReturningPrimitive()
+        {
+            return "abc";
+        }*/
     }
 }

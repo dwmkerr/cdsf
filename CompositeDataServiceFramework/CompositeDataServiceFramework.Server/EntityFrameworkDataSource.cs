@@ -192,25 +192,53 @@ namespace CompositeDataServiceFramework.Server
             List<ServiceOperationParameter> serviceOperationParameters = new List<ServiceOperationParameter>();
 
             //  Add each service operation parameter.
-            foreach(var edmParameter in edmFunction.Parameters)
+            foreach (var edmParameter in edmFunction.Parameters)
             {
                 //  Add the service operation parameter.
                 serviceOperationParameters.Add(new ServiceOperationParameter(edmParameter.Name, MapEdmType(edmParameter.TypeUsage.EdmType)));
             }
 
-            //  TODO: Create the service operation result kind.
-            ServiceOperationResultKind resultKind = ServiceOperationResultKind.DirectValue;
-            
-            //  TODO: Create the result set.
+            //  Unless we determine otherwise, the result kind will be void
+            //  and the result set will be null.
+            ServiceOperationResultKind resultKind = ServiceOperationResultKind.Void;
+            ResourceType resultType = null;
             ResourceSet resultSet = null;
 
-            //  TODO: Create the method.
+            //  We can only set return type information if the return
+            //  type is not set (i.e. it's void).
+            if (edmFunction.ReturnParameter != null)
+            {
+                //  Get the return parameter type.
+                var edmReturnType = edmFunction.ReturnParameter.TypeUsage.EdmType;
+
+                //  Are we returning a collection?
+                if (edmReturnType is CollectionType)
+                {
+                    //  Cast the collection.
+                    CollectionType edmCollection = edmReturnType as CollectionType;
+
+                    //  Set the collection type.
+                    resultKind = ServiceOperationResultKind.QueryWithMultipleResults;
+
+                    //  Set the result set.
+                    CompositeResourceSet compositeResourceSet;
+                    if (metadataProvider.TryResolveCompositeResourceSetForResourceType(edmCollection.TypeUsage.EdmType.Name,
+                        out compositeResourceSet) == false)
+                        throw new DataServiceException("Unable to build metadata for the Service Operation '" + edmFunction.Name + "'.");
+                    resultSet = compositeResourceSet.ResourceSet;
+
+                    //  Set the resource type.
+                    resultType = compositeResourceSet.ResourceSet.ResourceType;
+                }
+            }
+
+            //  TODO: Create the method. At the moment we force get
+            //  but we want to support POST as well.
             string method = "GET";
 
             //  Create the service operation.
             ServiceOperation serviceOperation = new ServiceOperation(edmFunction.Name,
-                resultKind, MapEdmType(edmFunction.ReturnParameter.TypeUsage.EdmType),
-                resultSet, method, serviceOperationParameters);
+                resultKind, resultType, resultSet, method, serviceOperationParameters);
 
             //  Create the composite service operation.  
             CompositeServiceOperation compositeServiceOperation = new CompositeServiceOperation()
@@ -221,7 +249,7 @@ namespace CompositeDataServiceFramework.Server
             };
 
             //  Add the service operation.
-            metadataProvider.AddCompositeServiceOperation(compositeServiceOperation);    
+            metadataProvider.AddCompositeServiceOperation(compositeServiceOperation);
         }
 
         private IEnumerable<ResourceProperty> GetAssociationEnds(CompositeDataServiceMetadataProvider metadataProvider, string assocationName)

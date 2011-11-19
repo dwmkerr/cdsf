@@ -18,6 +18,15 @@ namespace CompositeDataServiceFramework.Server
             set;
         }
 
+        public string ResourceTypeName
+        {
+            get
+            {
+                return ResourceSet.ResourceType.Name;
+            }
+
+        }
+
         public CompositeDataSource DataSource
         {
             get;
