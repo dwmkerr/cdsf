@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace CompositeDataServiceClient.Wizard
+namespace CompositeDataServiceClientWizards
 {
+
   public partial class CompositeDataServiceClientConfigurationForm : Form
   {
     public CompositeDataServiceClientConfigurationForm()

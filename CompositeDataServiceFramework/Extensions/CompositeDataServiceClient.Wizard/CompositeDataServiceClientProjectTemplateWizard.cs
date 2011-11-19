@@ -30,8 +30,8 @@ namespace CompositeDataServiceClientWizards
 
     public void RunStarted(object automationObject, Dictionary<string, string> replacementsDictionary, WizardRunKind runKind, object[] customParams)
     {
-      System.Windows.Forms.MessageBox.Show("Wizard");
-      //  TODO: Not needed.
+        CompositeDataServiceClientConfigurationForm config = new CompositeDataServiceClientConfigurationForm();
+        config.ShowDialog();
     }
 
     public bool ShouldAddProjectItem(string filePath)

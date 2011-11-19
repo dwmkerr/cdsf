@@ -99,6 +99,17 @@ namespace CompositeDataServiceFramework.Server
       }
     }
 
+    public IEnumerable<EdmFunction> FunctionImports
+    {
+        get
+        {
+            List<EdmFunction> sets = new List<EdmFunction>();
+            foreach (var container in EntityContainers)
+                sets.AddRange(container.FunctionImports);
+            return sets;
+        }
+    }
+
     public IEnumerable<EntityType> EntityTypes
     {
       get { return edmItemCollection.OfType<EntityType>(); }

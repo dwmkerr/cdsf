@@ -6,6 +6,10 @@ using System.Data.Services.Providers;
 
 namespace CompositeDataServiceFramework.Server
 {
+    /// <summary>
+    /// The Composite Data Service Metadata Provider provides metadata for
+    /// a composite data service.
+    /// </summary>
     public class CompositeDataServiceMetadataProvider : IDataServiceMetadataProvider
     {
         /// <summary>
@@ -14,7 +18,12 @@ namespace CompositeDataServiceFramework.Server
         /// <returns>String that contains the name of the container.</returns>
         public string ContainerName
         {
-            get { return "CompositeDataServiceContainer"; }
+            get 
+            {
+                //  TODO: What is the most appropriate choice here? A static string?
+                //  A property set from the constructor?
+                return "CompositeDataServiceContainer";
+            }
         }
 
         /// <summary>
@@ -23,7 +32,12 @@ namespace CompositeDataServiceFramework.Server
         /// <returns>String that contains the namespace name.</returns>
         public string ContainerNamespace
         {
-            get { return "CompositeDataServiceContainerNamespace"; }
+            get 
+            { 
+                //  TODO: What is the most appropriate choice here? A static string?
+                //  A property set from the constructor?
+                return "CompositeDataServiceContainerNamespace";
+            }
         }
 
         /// <summary>
@@ -35,7 +49,7 @@ namespace CompositeDataServiceFramework.Server
         /// </returns>
         public IEnumerable<ResourceType> GetDerivedTypes(ResourceType resourceType)
         {
-            // We don't support type inheritance yet 
+            //  TODO: We don't support type inheritance yet - this should be added.
             yield break; 
         }
 
@@ -189,6 +203,7 @@ namespace CompositeDataServiceFramework.Server
         /// <returns>True if the composite resource set was found.</returns>
         public bool TryResolveCompositeResourceSet(string name, out CompositeResourceSet compositeResourceSet)
         {
+            //  Try and get the resource set.
             return resourceSets.TryGetValue(name, out compositeResourceSet);
         }
 
@@ -200,6 +215,7 @@ namespace CompositeDataServiceFramework.Server
         /// <returns></returns>
         public bool TryResolveCompositeResourceAssociationSet(string name, out CompositeResourceAssociationSet compositeResourceAssociationSet)
         {
+            //  Try and get the resource association set.
             return resourceAssociationSets.TryGetValue(name, out compositeResourceAssociationSet);
         }
 
@@ -211,6 +227,7 @@ namespace CompositeDataServiceFramework.Server
         /// <returns>True if the composite resource type was found.</returns>
         public bool TryResolveCompositeResourceType(string name, out CompositeResourceType compositeResourceType)
         {
+            //  Try and get the resource type.
             return resourceTypes.TryGetValue(name, out compositeResourceType);
         }
 
@@ -222,6 +239,7 @@ namespace CompositeDataServiceFramework.Server
         /// <returns>True if the composite service operation was found.</returns>
         public bool TryResolveCompositeServiceOperation(string name, out CompositeServiceOperation compositeServiceOperation)
         {
+            //  Try and get the service operation.
             return serviceOperations.TryGetValue(name, out compositeServiceOperation);
         }
 
@@ -231,7 +249,7 @@ namespace CompositeDataServiceFramework.Server
         /// <param name="type">The type.</param>
         public void AddCompositeResourceType(CompositeResourceType type)
         {
-            //type.ResourceType.SetReadOnly();
+            //  Add the composite resource type.
             resourceTypes.Add(type.Name, type);
         }
 
@@ -241,7 +259,7 @@ namespace CompositeDataServiceFramework.Server
         /// <param name="set">The set.</param>
         public void AddCompositeResourceSet(CompositeResourceSet set)
         {
-            //set.ResourceSet.SetReadOnly();
+            //  Add the composite resource set.
             resourceSets.Add(set.Name, set);
         }
 
@@ -251,6 +269,7 @@ namespace CompositeDataServiceFramework.Server
         /// <param name="set">The set.</param>
         public void AddCompositeResourceAssociationSet(CompositeResourceAssociationSet set)
         {
+            //  Add the resource association set.
             resourceAssociationSets.Add(set.Name, set);
         }
 
@@ -260,22 +279,27 @@ namespace CompositeDataServiceFramework.Server
         /// <param name="operation">The operation.</param>
         public void AddCompositeServiceOperation(CompositeServiceOperation operation)
         {
-            //operation.ServiceOperation.SetReadOnly();
+            //  Add the service operation.
             serviceOperations.Add(operation.Name, operation);
         }
 
+        /// <summary>
+        /// Freezes this instance, making sure that all resource sets and types are 
+        /// set to read only.
+        /// </summary>
         public void Freeze()
         {
-            
+            //  Freeze each resource type.
             foreach(var rt in resourceTypes.Values.Where((rt) => { return rt.ResourceType.IsReadOnly == false; }))
                 rt.ResourceType.SetReadOnly();
 
+            //  Freeze each resource set.
             foreach (var rs in resourceSets.Values.Where((rs) => { return rs.ResourceSet.IsReadOnly == false; }))
                 rs.ResourceSet.SetReadOnly();
 
+            //  Freeze each service operation.
             foreach (var so in serviceOperations.Values.Where((so) => { return so.ServiceOperation.IsReadOnly == false; }))
                 so.ServiceOperation.SetReadOnly();
-             
         }
 
         /// <summary>

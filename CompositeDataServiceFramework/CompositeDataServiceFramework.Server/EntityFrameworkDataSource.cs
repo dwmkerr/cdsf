@@ -130,17 +130,32 @@ namespace CompositeDataServiceFramework.Server
             {
                 CreateAssociation(metadataProvider, associationType, context);
             }
+
+            //  Go through each service operation and add it to the metadata.
+            foreach (var functionImport in metadataLoader.FunctionImports)
+            {
+                CreateServiceOperation(metadataProvider, functionImport);
+            }
             
             //  Freeze the metadata.
             metadataProvider.Freeze();
         }
 
 
+        /// <summary>
+        /// This function maps an EdmType to a ResourceType - a fairly common operation.
+        /// </summary>
+        /// <param name="edmType">The EdmType.</param>
+        /// <returns>The ResourceType compatible with the EdmType.</returns>
         private ResourceType MapEdmType(EdmType edmType)
         {
+            //  If the EdmType is a primitive type, we can simply get a resource type from the 
+            //  clr type.
             if (edmType is PrimitiveType)
                 return ResourceType.GetPrimitiveResourceType(((PrimitiveType)edmType).ClrEquivalentType);
-            throw new Exception("Don't know type " + edmType.Name);
+            
+            //  The EdmType is not primitive, and therefore at this stage we cannot support it.
+            throw new Exception("Cannot map EDM Type '" + edmType.Name + "'");
         }
 
         private void CreateNavigationProperties(CompositeDataServiceMetadataProvider metadataProvider, EntityType entityType, ObjectContext context)
@@ -165,6 +180,48 @@ namespace CompositeDataServiceFramework.Server
                 //  Add the resource property.
                 fromType.ResourceType.AddProperty(resourceProperty);
             }
+        }
+
+        /// <summary>
+        /// Creates the service operation.
+        /// </summary>
+        /// <param name="edmFunction">The edm function.</param>
+        private void CreateServiceOperation(CompositeDataServiceMetadataProvider metadataProvider, EdmFunction edmFunction)
+        {
+            //  Create a set of service operation parameters.
+            List<ServiceOperationParameter> serviceOperationParameters = new List<ServiceOperationParameter>();
+
+            //  Add each service operation parameter.
+            foreach(var edmParameter in edmFunction.Parameters)
+            {
+                //  Add the service operation parameter.
+                serviceOperationParameters.Add(new ServiceOperationParameter(edmParameter.Name, MapEdmType(edmParameter.TypeUsage.EdmType)));
+            }
+
+            //  TODO: Create the service operation result kind.
+            ServiceOperationResultKind resultKind = ServiceOperationResultKind.DirectValue;
+            
+            //  TODO: Create the result set.
+            ResourceSet resultSet = null;
+
+            //  TODO: Create the method.
+            string method = "GET";
+
+            //  Create the service operation.
+            ServiceOperation serviceOperation = new ServiceOperation(edmFunction.Name,
+                resultKind, MapEdmType(edmFunction.ReturnParameter.TypeUsage.EdmType),
+                resultSet, method, serviceOperationParameters);
+
+            //  Create the composite service operation.  
+            CompositeServiceOperation compositeServiceOperation = new CompositeServiceOperation()
+            {
+                DataSource = this,
+                Name = edmFunction.Name,
+                ServiceOperation = serviceOperation
+            };
+
+            //  Add the service operation.
+            metadataProvider.AddCompositeServiceOperation(compositeServiceOperation);    
         }
 
         private IEnumerable<ResourceProperty> GetAssociationEnds(CompositeDataServiceMetadataProvider metadataProvider, string assocationName)

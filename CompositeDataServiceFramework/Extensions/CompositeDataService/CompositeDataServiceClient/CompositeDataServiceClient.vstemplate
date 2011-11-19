@@ -12,14 +12,16 @@
     <DefaultName>CompositeDataServiceClient</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
   </TemplateData>
+  
   <TemplateContent>
     <Project File="ProjectTemplate.csproj" ReplaceParameters="true">
       <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" OpenInEditor="true">Class1.cs</ProjectItem>
     </Project>
-    <WizardExtension>
-      <Assembly>CompositeDataServiceWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4bd814366dfdd64f</Assembly>
-      <FullClassName>CompositeDataServiceWizards.CompositeDataServiceClientProjectTemplateWizard</FullClassName>
-    </WizardExtension>
   </TemplateContent>
+  
+  <WizardExtension>
+    <Assembly>CompositeDataServiceWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4bd814366dfdd64f</Assembly>
+    <FullClassName>CompositeDataServiceWizards.CompositeDataServiceClientProjectTemplateWizard</FullClassName>
+  </WizardExtension>
 </VSTemplate>

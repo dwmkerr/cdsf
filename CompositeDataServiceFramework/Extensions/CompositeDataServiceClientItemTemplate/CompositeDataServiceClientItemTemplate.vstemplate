@@ -11,18 +11,20 @@
     <DefaultName>CompositeDataServiceClient.cs</DefaultName>
   </TemplateData>
   <TemplateContent>
-		<References>
-			<Reference>
-				<Assembly>System</Assembly>
-			</Reference>
-		</References>
+
+    <References>
+      <Reference>
+        <Assembly>System</Assembly>
+      </Reference>
+    </References>
 
     <ProjectItem ReplaceParameters="true">CompositeDataServiceClient.cs</ProjectItem>
 
-    <WizardExtension>
-      <Assembly>CompositeDataServiceWizards, Version=1.0.0.0, Culture=Neutral, PublicKeyToken=4bd814366dfdd64f</Assembly>
-      <FullClassName>CompositeDataServiceWizards.CompositeDataServiceClientItemTemplateWizard</FullClassName>
-    </WizardExtension>
-    
   </TemplateContent>
+  
+  <WizardExtension>
+    <Assembly>CompositeDataServiceWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4bd814366dfdd64f</Assembly>
+    <FullClassName>CompositeDataServiceWizards.CompositeDataServiceClientItemTemplateWizard</FullClassName>
+  </WizardExtension>
+  
 </VSTemplate>
