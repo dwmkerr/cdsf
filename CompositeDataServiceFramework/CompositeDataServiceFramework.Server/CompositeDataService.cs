@@ -7,14 +7,6 @@ using System.Data.Services.Providers;
 
 namespace CompositeDataServiceFramework.Server
 {
-    public class Product
-    {
-        public int ProdKey { get; set; }
-        public string Name { get; set; }
-        public Decimal Price { get; set; }
-        public Decimal Cost { get; set; }
-    }
-
     public class CompositeDataService : DataService<CompositeDataServiceContext>,
         IServiceProvider
     {

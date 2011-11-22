@@ -8,13 +8,20 @@ namespace CompositeDataServiceFramework.Server
 {
     public abstract class CompositeDataSource
     {
-      /// <summary>
-      /// Initialises the instance, putting all metadata into the supplied metadata provider.
-      /// </summary>
-      /// <param name="metadataProvider">The metadata provider.</param>
+        /// <summary>
+        /// Initialises the instance, putting all metadata into the supplied metadata provider.
+        /// </summary>
+        /// <param name="metadataProvider">The metadata provider.</param>
         public abstract void Initialise(CompositeDataServiceMetadataProvider metadataProvider);
 
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
         public abstract void SaveChanges();
+
+        /// <summary>
+        /// Cancels the changes.
+        /// </summary>
         public abstract void CancelChanges();
     }
 }

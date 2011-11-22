@@ -37,16 +37,18 @@ namespace Test1
             return CurrentDataSource.Products;
         }
 
-        /*[WebGet]
+        /*
+        [WebGet]
         public Product FunctionReturningEntity()
         {
             return (from p in CurrentDataSource.Products orderby p.Price descending select p).FirstOrDefault();
-        }*/
+        }
 
-        /*[WebGet]
+        [WebGet]
         public string FunctionReturningPrimitive()
         {
             return "abc";
-        }*/
+        }
+         * */
     }
 }

@@ -62,7 +62,7 @@
     <Compile Include="CompositeResourceType.cs" />
     <Compile Include="CompositeServiceOperation.cs" />
     <Compile Include="CompositeResourceAssociationSet.cs" />
-    <Compile Include="EntityFrameworkDataSource.cs" />
+    <Compile Include="WcfDataServiceDataSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyInfoExtensions.cs" />
     <Compile Include="WcfDataServiceMetadataLoader.cs" />

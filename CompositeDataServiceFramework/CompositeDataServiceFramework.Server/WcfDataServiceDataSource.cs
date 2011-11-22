@@ -11,24 +11,45 @@ using System.Data.Metadata.Edm;
 
 namespace CompositeDataServiceFramework.Server
 {
-    public class EntityFrameworkDataSource<T> : CompositeDataSource where T : ObjectContext
+    /// <summary>
+    /// A WcfDataServiceDataSource is a data source that is based
+    /// on a Wcf data service.
+    /// </summary>
+    /// <typeparam name="T">The ObjectContext the data service is exposing.</typeparam>
+    public class WcfDataServiceDataSource<T> : CompositeDataSource where T : ObjectContext
     {
-        public EntityFrameworkDataSource(DataService<T> dataService, T context, Uri serviceUri)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WcfDataServiceDataSource&lt;T&gt;"/> class.
+        /// </summary>
+        /// <param name="dataService">The data service.</param>
+        /// <param name="context">The context.</param>
+        /// <param name="serviceUri">The service URI.</param>
+        public WcfDataServiceDataSource(DataService<T> dataService, T context, Uri serviceUri)
         {
           this.dataService = dataService;
           this.context = context;
           this.serviceUri = serviceUri;
         }
 
+        /// <summary>
+        /// Cancels the changes.
+        /// </summary>
         public override void CancelChanges()
         {
         }
 
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
         public override void SaveChanges()
         {
           context.SaveChanges();
         }
 
+        /// <summary>
+        /// Initialises the instance, putting all metadata into the supplied metadata provider.
+        /// </summary>
+        /// <param name="metadataProvider">The metadata provider.</param>
         public override void Initialise(CompositeDataServiceMetadataProvider metadataProvider)
         {
             //  Load the metadata.
@@ -140,8 +161,7 @@ namespace CompositeDataServiceFramework.Server
             //  Freeze the metadata.
             metadataProvider.Freeze();
         }
-
-
+        
         /// <summary>
         /// This function maps an EdmType to a ResourceType - a fairly common operation.
         /// </summary>
@@ -343,9 +363,27 @@ namespace CompositeDataServiceFramework.Server
             return resourceType;
         }
 
-
+        /// <summary>
+        /// The data service.
+        /// </summary>
         private DataService<T> dataService;
+
+        /// <summary>
+        /// The Data Context.
+        /// </summary>
         private T context;
+
+        /// <summary>
+        /// The Service Uri.
+        /// </summary>
         private Uri serviceUri;
+
+        /// <summary>
+        /// Gets the context.
+        /// </summary>
+        public T Context
+        {
+            get { return context; }
+        }
     }
 }
