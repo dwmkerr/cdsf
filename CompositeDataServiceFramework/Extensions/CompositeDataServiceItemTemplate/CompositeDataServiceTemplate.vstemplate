@@ -15,9 +15,6 @@
 			<Reference>
 				<Assembly>System</Assembly>
 			</Reference>
-      <Reference>
-        <Assembly>CompositeDataServiceFramework.Server</Assembly>
-      </Reference>
 		</References>
     <ProjectItem ReplaceParameters="true">CompositeDataService.svc</ProjectItem>
     <ProjectItem ReplaceParameters="true">CompositeDataService.svc.cs</ProjectItem>

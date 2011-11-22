@@ -76,12 +76,6 @@
   <ItemGroup>
     <Content Include="CompositeDataServiceTemplate.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\CompositeDataServiceFramework.Server\CompositeDataServiceFramework.Server.csproj">
-      <Project>{C64E684D-EC1D-4996-92F4-346AD5148314}</Project>
-      <Name>CompositeDataServiceFramework.Server</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\VSSDK\Microsoft.VsSDK.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

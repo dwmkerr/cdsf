@@ -5,7 +5,11 @@ $endif$using System.Text;
 
 namespace $rootnamespace$
 {
-	class $safeitemrootname$
+	public class $safeitemrootname$
 	{
+        public $safeitemrootname$()
+        {
+            //  TODO: The Composite Data Service Client
+        }
 	}
 }

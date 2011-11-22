@@ -23,7 +23,7 @@
   </TemplateContent>
   
   <WizardExtension>
-    <Assembly>CompositeDataServiceWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4bd814366dfdd64f</Assembly>
+    <Assembly>CompositeDataServiceWizards</Assembly>
     <FullClassName>CompositeDataServiceWizards.CompositeDataServiceClientItemTemplateWizard</FullClassName>
   </WizardExtension>
   

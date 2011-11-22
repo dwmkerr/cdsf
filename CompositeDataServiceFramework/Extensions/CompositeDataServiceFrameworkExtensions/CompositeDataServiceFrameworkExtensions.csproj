@@ -63,6 +63,14 @@
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <VSIXSubPath>ItemTemplates</VSIXSubPath>
     </ProjectReference>
+    <ProjectReference Include="..\CompositeDataServiceClientProjectTemplate\CompositeDataServiceClientProjectTemplate.csproj">
+      <Project>{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}</Project>
+      <Name>CompositeDataServiceClientProjectTemplate</Name>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <TemplateType>Project</TemplateType>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
+    </ProjectReference>
     <ProjectReference Include="..\CompositeDataServiceItemTemplate\CompositeDataServiceItemTemplate.csproj">
       <Project>{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}</Project>
       <Name>CompositeDataServiceItemTemplate</Name>

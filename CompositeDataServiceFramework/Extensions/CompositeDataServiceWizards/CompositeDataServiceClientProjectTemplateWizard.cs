@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TemplateWizard;
 
-namespace CompositeDataServiceClientWizards
+namespace CompositeDataServiceWizards
 {
   public class CompositeDataServiceClientProjectTemplateWizard : IWizard
   {

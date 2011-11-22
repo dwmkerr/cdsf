@@ -1,4 +1,4 @@
-﻿namespace CompositeDataServiceClientWizards
+﻿namespace CompositeDataServiceWizards
 {
   partial class CompositeDataServiceClientConfigurationForm
   {
