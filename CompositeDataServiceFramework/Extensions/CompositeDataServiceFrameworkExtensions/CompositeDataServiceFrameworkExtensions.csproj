@@ -39,21 +39,22 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>CompositeDataServiceFrameworkKey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CompositeDataServiceFrameworkKey.pfx" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CompositeDataServiceClient.Wizard\CompositeDataServiceWizards.csproj">
-      <Project>{FEFA67E6-967B-4294-9BFE-149E0659653C}</Project>
-      <Name>CompositeDataServiceWizards</Name>
-      <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3b</IncludeOutputGroupsInVSIX>
-      <IncludeOutputGroupsInVSIXLocalOnly>DebugSymbolsProjectOutputGroup%3b</IncludeOutputGroupsInVSIXLocalOnly>
-    </ProjectReference>
     <ProjectReference Include="..\CompositeDataServiceClientItemTemplate\CompositeDataServiceClientItemTemplate.csproj">
       <Project>{329F31A5-356E-46D5-B7D0-21845CBA0FA7}</Project>
       <Name>CompositeDataServiceClientItemTemplate</Name>
@@ -62,7 +63,7 @@
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <VSIXSubPath>ItemTemplates</VSIXSubPath>
     </ProjectReference>
-    <ProjectReference Include="..\CompositeDataServiceTemplate\CompositeDataServiceItemTemplate.csproj">
+    <ProjectReference Include="..\CompositeDataServiceItemTemplate\CompositeDataServiceItemTemplate.csproj">
       <Project>{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}</Project>
       <Name>CompositeDataServiceItemTemplate</Name>
       <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
@@ -70,13 +71,11 @@
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <VSIXSubPath>ItemTemplates</VSIXSubPath>
     </ProjectReference>
-    <ProjectReference Include="..\CompositeDataService\CompositeDataServiceClient\CompositeDataServiceClientProjectTemplate.csproj">
-      <Project>{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}</Project>
-      <Name>CompositeDataServiceClientProjectTemplate</Name>
-      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
-      <TemplateType>Project</TemplateType>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
+    <ProjectReference Include="..\CompositeDataServiceWizards\CompositeDataServiceWizards.csproj">
+      <Project>{FEFA67E6-967B-4294-9BFE-149E0659653C}</Project>
+      <Name>CompositeDataServiceWizards</Name>
+      <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3b</IncludeOutputGroupsInVSIX>
+      <IncludeOutputGroupsInVSIXLocalOnly>DebugSymbolsProjectOutputGroup%3b</IncludeOutputGroupsInVSIXLocalOnly>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

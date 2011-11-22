@@ -3,14 +3,90 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{0F90343A-BD3F-48F1-AD2A-8B51402A597B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CompositeDataServiceFramework.Server", "CompositeDataServiceFramework.Server", "{D25598B3-F79F-47D5-A92F-7B6BFB973113}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceWizards", "Extensions\CompositeDataServiceWizards\CompositeDataServiceWizards.csproj", "{FEFA67E6-967B-4294-9BFE-149E0659653C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceClientProjectTemplate", "Extensions\CompositeDataServiceClientProjectTemplate\CompositeDataServiceClientProjectTemplate.csproj", "{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceClientItemTemplate", "Extensions\CompositeDataServiceClientItemTemplate\CompositeDataServiceClientItemTemplate.csproj", "{329F31A5-356E-46D5-B7D0-21845CBA0FA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceItemTemplate", "Extensions\CompositeDataServiceItemTemplate\CompositeDataServiceItemTemplate.csproj", "{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceFrameworkExtensions", "Extensions\CompositeDataServiceFrameworkExtensions\CompositeDataServiceFrameworkExtensions.csproj", "{1BBC78AC-C2C9-4A79-A8D6-06F8E0AD0B99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceFramework.Server", "CompositeDataServiceFramework.Server\CompositeDataServiceFramework.Server.csproj", "{C64E684D-EC1D-4996-92F4-346AD5148314}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 1
+		SccNumberOfProjects = 7
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs33
 		SccLocalPath0 = .
+		SccProjectUniqueName1 = Extensions\\CompositeDataServiceWizards\\CompositeDataServiceWizards.csproj
+		SccProjectTopLevelParentUniqueName1 = CompositeDataServiceFramework.sln
+		SccProjectName1 = Extensions/CompositeDataServiceWizards
+		SccLocalPath1 = Extensions\\CompositeDataServiceWizards
+		SccProjectUniqueName2 = Extensions\\CompositeDataServiceClientProjectTemplate\\CompositeDataServiceClientProjectTemplate.csproj
+		SccProjectTopLevelParentUniqueName2 = CompositeDataServiceFramework.sln
+		SccProjectName2 = Extensions/CompositeDataServiceClientProjectTemplate
+		SccLocalPath2 = Extensions\\CompositeDataServiceClientProjectTemplate
+		SccProjectUniqueName3 = Extensions\\CompositeDataServiceClientItemTemplate\\CompositeDataServiceClientItemTemplate.csproj
+		SccProjectTopLevelParentUniqueName3 = CompositeDataServiceFramework.sln
+		SccProjectName3 = Extensions/CompositeDataServiceClientItemTemplate
+		SccLocalPath3 = Extensions\\CompositeDataServiceClientItemTemplate
+		SccProjectUniqueName4 = Extensions\\CompositeDataServiceItemTemplate\\CompositeDataServiceItemTemplate.csproj
+		SccProjectTopLevelParentUniqueName4 = CompositeDataServiceFramework.sln
+		SccProjectName4 = Extensions/CompositeDataServiceItemTemplate
+		SccLocalPath4 = Extensions\\CompositeDataServiceItemTemplate
+		SccProjectUniqueName5 = Extensions\\CompositeDataServiceFrameworkExtensions\\CompositeDataServiceFrameworkExtensions.csproj
+		SccProjectTopLevelParentUniqueName5 = CompositeDataServiceFramework.sln
+		SccProjectName5 = Extensions/CompositeDataServiceFrameworkExtensions
+		SccLocalPath5 = Extensions\\CompositeDataServiceFrameworkExtensions
+		SccProjectUniqueName6 = CompositeDataServiceFramework.Server\\CompositeDataServiceFramework.Server.csproj
+		SccProjectTopLevelParentUniqueName6 = CompositeDataServiceFramework.sln
+		SccProjectName6 = CompositeDataServiceFramework.Server
+		SccLocalPath6 = CompositeDataServiceFramework.Server
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{329F31A5-356E-46D5-B7D0-21845CBA0FA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{329F31A5-356E-46D5-B7D0-21845CBA0FA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{329F31A5-356E-46D5-B7D0-21845CBA0FA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{329F31A5-356E-46D5-B7D0-21845CBA0FA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BBC78AC-C2C9-4A79-A8D6-06F8E0AD0B99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BBC78AC-C2C9-4A79-A8D6-06F8E0AD0B99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BBC78AC-C2C9-4A79-A8D6-06F8E0AD0B99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BBC78AC-C2C9-4A79-A8D6-06F8E0AD0B99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C64E684D-EC1D-4996-92F4-346AD5148314}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C64E684D-EC1D-4996-92F4-346AD5148314}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C64E684D-EC1D-4996-92F4-346AD5148314}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C64E684D-EC1D-4996-92F4-346AD5148314}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FEFA67E6-967B-4294-9BFE-149E0659653C} = {0F90343A-BD3F-48F1-AD2A-8B51402A597B}
+		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6} = {0F90343A-BD3F-48F1-AD2A-8B51402A597B}
+		{329F31A5-356E-46D5-B7D0-21845CBA0FA7} = {0F90343A-BD3F-48F1-AD2A-8B51402A597B}
+		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB} = {0F90343A-BD3F-48F1-AD2A-8B51402A597B}
+		{1BBC78AC-C2C9-4A79-A8D6-06F8E0AD0B99} = {0F90343A-BD3F-48F1-AD2A-8B51402A597B}
+		{C64E684D-EC1D-4996-92F4-346AD5148314} = {D25598B3-F79F-47D5-A92F-7B6BFB973113}
 	EndGlobalSection
 EndGlobal

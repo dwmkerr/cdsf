@@ -36,11 +36,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceItemTem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceFramework", "..\Extensions\CompositeDataServiceFramework\CompositeDataServiceFramework.csproj", "{1BBC78AC-C2C9-4A79-A8D6-06F8E0AD0B99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceClientProjectTemplate", "..\Extensions\CompositeDataService\CompositeDataServiceClient\CompositeDataServiceClientProjectTemplate.csproj", "{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceWizards", "..\Extensions\CompositeDataServiceClient.Wizard\CompositeDataServiceWizards.csproj", "{FEFA67E6-967B-4294-9BFE-149E0659653C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceClientItemTemplate", "..\Extensions\CompositeDataServiceClientItemTemplate\CompositeDataServiceClientItemTemplate.csproj", "{329F31A5-356E-46D5-B7D0-21845CBA0FA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceWizards", "..\Extensions\CompositeDataServiceWizards\CompositeDataServiceWizards.csproj", "{FEFA67E6-967B-4294-9BFE-149E0659653C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceClientProjectTemplate", "..\Extensions\CompositeDataServiceClientProjectTemplate\CompositeDataServiceClientProjectTemplate.csproj", "{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -80,22 +80,22 @@ Global
 		SccProjectTopLevelParentUniqueName8 = CompositeDataFramework.sln
 		SccProjectName8 = ../Extensions/CompositeDataServiceFramework
 		SccLocalPath8 = ..\\Extensions\\CompositeDataServiceFramework
-		SccProjectUniqueName9 = ..\\Extensions\\CompositeDataServiceClient.Wizard\\CompositeDataServiceWizards.csproj
+		SccProjectUniqueName9 = ..\\Extensions\\CompositeDataServiceTemplate\\CompositeDataServiceItemTemplate.csproj
 		SccProjectTopLevelParentUniqueName9 = CompositeDataFramework.sln
-		SccProjectName9 = ../Extensions/CompositeDataServiceClient.Wizard
-		SccLocalPath9 = ..\\Extensions\\CompositeDataServiceClient.Wizard
-		SccProjectUniqueName10 = ..\\Extensions\\CompositeDataServiceTemplate\\CompositeDataServiceItemTemplate.csproj
+		SccProjectName9 = ../Extensions/CompositeDataServiceTemplate
+		SccLocalPath9 = ..\\Extensions\\CompositeDataServiceTemplate
+		SccProjectUniqueName10 = ..\\Extensions\\CompositeDataServiceClientItemTemplate\\CompositeDataServiceClientItemTemplate.csproj
 		SccProjectTopLevelParentUniqueName10 = CompositeDataFramework.sln
-		SccProjectName10 = ../Extensions/CompositeDataServiceTemplate
-		SccLocalPath10 = ..\\Extensions\\CompositeDataServiceTemplate
-		SccProjectUniqueName11 = ..\\Extensions\\CompositeDataService\\CompositeDataServiceClient\\CompositeDataServiceClientProjectTemplate.csproj
+		SccProjectName10 = ../Extensions/CompositeDataServiceClientItemTemplate
+		SccLocalPath10 = ..\\Extensions\\CompositeDataServiceClientItemTemplate
+		SccProjectUniqueName11 = ..\\Extensions\\CompositeDataServiceWizards\\CompositeDataServiceWizards.csproj
 		SccProjectTopLevelParentUniqueName11 = CompositeDataFramework.sln
-		SccProjectName11 = ../Extensions/CompositeDataService/CompositeDataServiceClient
-		SccLocalPath11 = ..\\Extensions\\CompositeDataService\\CompositeDataServiceClient
-		SccProjectUniqueName12 = ..\\Extensions\\CompositeDataServiceClientItemTemplate\\CompositeDataServiceClientItemTemplate.csproj
+		SccProjectName11 = ../Extensions/CompositeDataServiceWizards
+		SccLocalPath11 = ..\\Extensions\\CompositeDataServiceWizards
+		SccProjectUniqueName12 = ..\\Extensions\\CompositeDataServiceClientProjectTemplate\\CompositeDataServiceClientProjectTemplate.csproj
 		SccProjectTopLevelParentUniqueName12 = CompositeDataFramework.sln
-		SccProjectName12 = ../Extensions/CompositeDataServiceClientItemTemplate
-		SccLocalPath12 = ..\\Extensions\\CompositeDataServiceClientItemTemplate
+		SccProjectName12 = ../Extensions/CompositeDataServiceClientProjectTemplate
+		SccLocalPath12 = ..\\Extensions\\CompositeDataServiceClientProjectTemplate
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = CompositeDataFramework.vsmdi
@@ -207,28 +207,6 @@ Global
 		{1BBC78AC-C2C9-4A79-A8D6-06F8E0AD0B99}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{1BBC78AC-C2C9-4A79-A8D6-06F8E0AD0B99}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{1BBC78AC-C2C9-4A79-A8D6-06F8E0AD0B99}.Release|x86.ActiveCfg = Release|Any CPU
-		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Debug|x86.Build.0 = Debug|Any CPU
-		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Release|x86.ActiveCfg = Release|Any CPU
-		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Debug|x86.Build.0 = Debug|Any CPU
-		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Release|x86.ActiveCfg = Release|Any CPU
 		{329F31A5-356E-46D5-B7D0-21845CBA0FA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{329F31A5-356E-46D5-B7D0-21845CBA0FA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{329F31A5-356E-46D5-B7D0-21845CBA0FA7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -240,6 +218,26 @@ Global
 		{329F31A5-356E-46D5-B7D0-21845CBA0FA7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{329F31A5-356E-46D5-B7D0-21845CBA0FA7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{329F31A5-356E-46D5-B7D0-21845CBA0FA7}.Release|x86.ActiveCfg = Release|Any CPU
+		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FEFA67E6-967B-4294-9BFE-149E0659653C}.Release|x86.ActiveCfg = Release|Any CPU
+		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -254,8 +252,8 @@ Global
 		{6F754B2F-4160-4D21-BBA9-E32980F98C58} = {85F8B207-AFC8-4404-AEAB-0CB553C6E4C8}
 		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB} = {33F901DD-35E3-42B1-B8F1-56952C1A6AAB}
 		{1BBC78AC-C2C9-4A79-A8D6-06F8E0AD0B99} = {33F901DD-35E3-42B1-B8F1-56952C1A6AAB}
-		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6} = {33F901DD-35E3-42B1-B8F1-56952C1A6AAB}
-		{FEFA67E6-967B-4294-9BFE-149E0659653C} = {33F901DD-35E3-42B1-B8F1-56952C1A6AAB}
 		{329F31A5-356E-46D5-B7D0-21845CBA0FA7} = {33F901DD-35E3-42B1-B8F1-56952C1A6AAB}
+		{FEFA67E6-967B-4294-9BFE-149E0659653C} = {33F901DD-35E3-42B1-B8F1-56952C1A6AAB}
+		{E0E7CE97-D7A3-4BE6-9EA9-94452BA7E9C6} = {33F901DD-35E3-42B1-B8F1-56952C1A6AAB}
 	EndGlobalSection
 EndGlobal

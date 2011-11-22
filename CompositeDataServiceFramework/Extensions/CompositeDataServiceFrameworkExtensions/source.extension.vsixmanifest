@@ -18,7 +18,6 @@
   <References />
   <Content>
     <Assembly AssemblyName="|CompositeDataServiceWizards;AssemblyName|">|CompositeDataServiceWizards|</Assembly>
-    <ProjectTemplate>ProjectTemplates</ProjectTemplate>
     <ItemTemplate>ItemTemplates</ItemTemplate>
   </Content>
 </Vsix>

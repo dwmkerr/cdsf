@@ -43,6 +43,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>CompositeDataServiceFrameworkKey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.CoreUtility">
       <Private>False</Private>
@@ -57,6 +63,7 @@
       <DependentUpon>CompositeDataService.svc</DependentUpon>
     </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="CompositeDataServiceFrameworkKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <VSTemplate Include="CompositeDataServiceTemplate.vstemplate">
@@ -73,10 +80,6 @@
     <ProjectReference Include="..\..\CompositeDataServiceFramework.Server\CompositeDataServiceFramework.Server.csproj">
       <Project>{C64E684D-EC1D-4996-92F4-346AD5148314}</Project>
       <Name>CompositeDataServiceFramework.Server</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CompositeDataServiceClient.Wizard\CompositeDataServiceWizards.csproj">
-      <Project>{FEFA67E6-967B-4294-9BFE-149E0659653C}</Project>
-      <Name>CompositeDataServiceWizards</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

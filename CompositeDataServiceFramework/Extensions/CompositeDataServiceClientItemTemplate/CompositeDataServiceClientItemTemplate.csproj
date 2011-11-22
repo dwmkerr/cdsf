@@ -45,6 +45,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>CompositeDataServiceFrameworkKey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.CoreUtility">
       <Private>False</Private>
@@ -60,6 +66,7 @@
   <ItemGroup>
     <None Include="CompositeDataServiceClient.cs" />
     <None Include="CompositeDataServiceClientItemTemplate.ico" />
+    <None Include="CompositeDataServiceFrameworkKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <VSTemplate Include="CompositeDataServiceClientItemTemplate.vstemplate" />
