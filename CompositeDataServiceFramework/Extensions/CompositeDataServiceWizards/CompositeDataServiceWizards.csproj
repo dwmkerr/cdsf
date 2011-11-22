@@ -65,6 +65,7 @@
     <Compile Include="CompositeDataServiceClientProjectTemplateWizard.cs" />
     <Compile Include="CompositeDataServiceClientItemTemplateWizard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceProxyGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CompositeDataServiceFrameworkKey.pfx" />
