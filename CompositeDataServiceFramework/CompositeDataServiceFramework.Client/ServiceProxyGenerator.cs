@@ -27,7 +27,25 @@ namespace CompositeDataServiceFramework.Client
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the output file path.
+        /// </summary>
+        /// <value>
+        /// The output file path.
+        /// </value>
         public string OutputFilePath
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the output file contents.
+        /// </summary>
+        /// <value>
+        /// The output file contents.
+        /// </value>
+        public string OutputFileContents
         {
             get;
             set;
@@ -62,39 +80,63 @@ namespace CompositeDataServiceFramework.Client
         /// </summary>
         public void Generate()
         {
-            //  Create a temporary file.
-            string outputFilePath = Path.GetTempFileName();
+            //  Create the temporary output file path.
+            OutputFilePath = Path.GetTempFileName();
 
             //  Generate the command string.
-            string commandString = BuildCommandString(outputFilePath);
+            string commandPath = GetDataServiceUtilityPath();
+            string commandString = BuildCommandArguments();
 
             //  Execute the command.
-            Process process = System.Diagnostics.Process.Start(commandString);
+            Process process = Process.Start(commandPath, commandString);
 
             //  Wait for the process to end.
             process.WaitForExit();
+
+            //  Get the contents of the newly generated file.
+            using (FileStream stream = new FileStream(OutputFilePath, FileMode.Open))
+            {
+                //  Create the reader.
+                using (TextReader reader = new StreamReader(stream))
+                {
+                    //  Get the file contents.
+                    OutputFileContents = reader.ReadToEnd();
+                }
+            }
         }
 
-        private string BuildCommandString()
+        private string BuildCommandArguments()
         {
             //  Create the command.
-            string command = @"%windir%\Microsoft.NET\Framework\v3.5\DataSvcUtil.exe ";
+            string command = string.Empty;
 
             //  If we are enabling data binding, add the data service collection flag.
             if (SupportDataBinding)
-                command += @"/dataservicecollection ";
+                command += @" /dataservicecollection";
+
+            //  Always use version 2.0.
+            command += " /Version:2.0";
 
             //  Set the language.
-            command += @"/language:" + ProxyLanguage.ToString();
+            command += @" /language:" + ProxyLanguage.ToString();
 
             //  Set the output file name.
-            command += @"/out:" + OutputFilePath;
+            command += @" /out:" + OutputFilePath;
 
             //  Set the service uri.
-            command += @"/uri:" + ServiceUri;
+            command += @" /uri:" + ServiceUri;
 
             //  Return the command string.
             return command;
+        }
+
+        private string GetDataServiceUtilityPath()
+        {
+            //  Get the windir path.
+            string winpath = Environment.GetEnvironmentVariable("windir");
+
+            //  Return the data service utility path.
+            return winpath + @"\Microsoft.NET\Framework\v3.5\DataSvcUtil.exe";
         }
     }
 }
