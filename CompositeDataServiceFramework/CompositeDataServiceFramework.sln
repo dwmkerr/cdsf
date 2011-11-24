@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{0F90343A-BD3F-48F1-AD2A-8B51402A597B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CompositeDataServiceFramework.Server", "CompositeDataServiceFramework.Server", "{D25598B3-F79F-47D5-A92F-7B6BFB973113}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{D25598B3-F79F-47D5-A92F-7B6BFB973113}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceWizards", "Extensions\CompositeDataServiceWizards\CompositeDataServiceWizards.csproj", "{FEFA67E6-967B-4294-9BFE-149E0659653C}"
 EndProject
@@ -17,9 +17,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceFramewo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceFramework.Server", "CompositeDataServiceFramework.Server\CompositeDataServiceFramework.Server.csproj", "{C64E684D-EC1D-4996-92F4-346AD5148314}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2FA48B4E-30AD-4BB6-A801-D00DC22915EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceFramework.Client", "CompositeDataServiceFramework.Client\CompositeDataServiceFramework.Client.csproj", "{7A6C2AD5-7DD3-4E2F-BC2A-EBDA5FFEB4E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersDataModel", "Samples\OrdersDataModel\OrdersDataModel.csproj", "{F9192BCD-2177-4AD3-AE58-CE52F202D45B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersDataModel", "Samples\UsersDataModel\UsersDataModel.csproj", "{3C6A68B4-0F76-4125-9F7A-F3B3F8FF13F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test1", "Samples\Test1\Test1.csproj", "{EBC8F959-6552-4DE2-8D5D-4210B4FADE2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeDataServiceFramework.Client.Tests", "Tests\CompositeDataServiceFramework.Client.Tests\CompositeDataServiceFramework.Client.Tests.csproj", "{6F754B2F-4160-4D21-BBA9-E32980F98C58}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 7
+		SccNumberOfProjects = 12
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs33
 		SccLocalPath0 = .
@@ -47,6 +59,26 @@ Global
 		SccProjectTopLevelParentUniqueName6 = CompositeDataServiceFramework.sln
 		SccProjectName6 = CompositeDataServiceFramework.Server
 		SccLocalPath6 = CompositeDataServiceFramework.Server
+		SccProjectUniqueName7 = CompositeDataServiceFramework.Client\\CompositeDataServiceFramework.Client.csproj
+		SccProjectTopLevelParentUniqueName7 = CompositeDataServiceFramework.sln
+		SccProjectName7 = CompositeDataServiceFramework.Client
+		SccLocalPath7 = CompositeDataServiceFramework.Client
+		SccProjectUniqueName8 = Samples\\OrdersDataModel\\OrdersDataModel.csproj
+		SccProjectTopLevelParentUniqueName8 = CompositeDataServiceFramework.sln
+		SccProjectName8 = Samples/OrdersDataModel
+		SccLocalPath8 = Samples\\OrdersDataModel
+		SccProjectUniqueName9 = Samples\\UsersDataModel\\UsersDataModel.csproj
+		SccProjectTopLevelParentUniqueName9 = CompositeDataServiceFramework.sln
+		SccProjectName9 = Samples/UsersDataModel
+		SccLocalPath9 = Samples\\UsersDataModel
+		SccProjectUniqueName10 = Samples\\Test1\\Test1.csproj
+		SccProjectTopLevelParentUniqueName10 = CompositeDataServiceFramework.sln
+		SccProjectName10 = Samples/Test1
+		SccLocalPath10 = Samples\\Test1
+		SccProjectUniqueName11 = Tests\\CompositeDataServiceFramework.Client.Tests\\CompositeDataServiceFramework.Client.Tests.csproj
+		SccProjectTopLevelParentUniqueName11 = CompositeDataServiceFramework.sln
+		SccProjectName11 = Tests/CompositeDataServiceFramework.Client.Tests
+		SccLocalPath11 = Tests\\CompositeDataServiceFramework.Client.Tests
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +109,26 @@ Global
 		{C64E684D-EC1D-4996-92F4-346AD5148314}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C64E684D-EC1D-4996-92F4-346AD5148314}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C64E684D-EC1D-4996-92F4-346AD5148314}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A6C2AD5-7DD3-4E2F-BC2A-EBDA5FFEB4E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A6C2AD5-7DD3-4E2F-BC2A-EBDA5FFEB4E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A6C2AD5-7DD3-4E2F-BC2A-EBDA5FFEB4E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A6C2AD5-7DD3-4E2F-BC2A-EBDA5FFEB4E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9192BCD-2177-4AD3-AE58-CE52F202D45B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9192BCD-2177-4AD3-AE58-CE52F202D45B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9192BCD-2177-4AD3-AE58-CE52F202D45B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9192BCD-2177-4AD3-AE58-CE52F202D45B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C6A68B4-0F76-4125-9F7A-F3B3F8FF13F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C6A68B4-0F76-4125-9F7A-F3B3F8FF13F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C6A68B4-0F76-4125-9F7A-F3B3F8FF13F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C6A68B4-0F76-4125-9F7A-F3B3F8FF13F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBC8F959-6552-4DE2-8D5D-4210B4FADE2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBC8F959-6552-4DE2-8D5D-4210B4FADE2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBC8F959-6552-4DE2-8D5D-4210B4FADE2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBC8F959-6552-4DE2-8D5D-4210B4FADE2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F754B2F-4160-4D21-BBA9-E32980F98C58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F754B2F-4160-4D21-BBA9-E32980F98C58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F754B2F-4160-4D21-BBA9-E32980F98C58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F754B2F-4160-4D21-BBA9-E32980F98C58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,5 +140,10 @@ Global
 		{3900FCF3-B0CB-4C92-B60E-296F9779B4BB} = {0F90343A-BD3F-48F1-AD2A-8B51402A597B}
 		{1BBC78AC-C2C9-4A79-A8D6-06F8E0AD0B99} = {0F90343A-BD3F-48F1-AD2A-8B51402A597B}
 		{C64E684D-EC1D-4996-92F4-346AD5148314} = {D25598B3-F79F-47D5-A92F-7B6BFB973113}
+		{7A6C2AD5-7DD3-4E2F-BC2A-EBDA5FFEB4E4} = {D25598B3-F79F-47D5-A92F-7B6BFB973113}
+		{F9192BCD-2177-4AD3-AE58-CE52F202D45B} = {2FA48B4E-30AD-4BB6-A801-D00DC22915EC}
+		{3C6A68B4-0F76-4125-9F7A-F3B3F8FF13F0} = {2FA48B4E-30AD-4BB6-A801-D00DC22915EC}
+		{EBC8F959-6552-4DE2-8D5D-4210B4FADE2B} = {2FA48B4E-30AD-4BB6-A801-D00DC22915EC}
+		{6F754B2F-4160-4D21-BBA9-E32980F98C58} = {2FA48B4E-30AD-4BB6-A801-D00DC22915EC}
 	EndGlobalSection
 EndGlobal
