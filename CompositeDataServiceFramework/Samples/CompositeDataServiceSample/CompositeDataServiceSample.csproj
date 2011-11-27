@@ -68,6 +68,7 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="CompositeDataServiceSample.svc" />
     <Content Include="OrdersDataService.svc" />
+    <Content Include="CreateDatabases.sql" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />

@@ -19,13 +19,27 @@
     <p>
         There are some more subtle limitations that we&#39;ll see later.
     </p>
+    <h2>Running the Example Service</h2><p>
+		Here&#39;s how to get started with the sample service:</p>
+    <ol>
+        <li>Open the CompositeDataServiceFramework Solution.</li>
+        <li>Double click on the file Samples &gt; Composite Data Service Sample &gt; 
+            CreateDatabases.sql</li>
+        <li>Run this script (SQL Server Express Edition is fine as a database platform if 
+            you do not have the full MS SQL Server installed).</li>
+        <li>Run the CompositeDataServiceSample project.</li>
+        <li>Browse to
+            <a href="http://localhost:65110/CompositeDataServiceSample.svc/$metadata">
+            http://localhost:65110/CompositeDataServiceSample.svc/$metadata</a> we can see 
+            that the CompositeDataService has composed a single data service from our Orders 
+            and Users Data services - and that the service is fully functional.</li>
+    </ol>
     <h2>The Composite Data Service Framework</h2><p>
 		With these limitations in mind I have created a project called the Composite 
         Data Service Framework. The main aim of this project is to allow many data 
         sources to be aggregated together to create a single composite WCF Data Service, 
         in a many highlighted by the diagram below.</p>
-    <img src="CSDF Diagram.png" />
-<h2>
+    <h2>
 		Creating a Composite Data Service</h2>
     <p>
 		Creating a composite data service is very simple. First, add a WCF Data Service 
@@ -151,17 +165,37 @@
         IDataServiceUpdateProvider</a> interface exposes functions to enable 
         manipulation of the data we have defined in the Metadata Provider and exposed in 
         the Query Provider. It allows data to be updated, deleted etc.</p>
+    <h2>
+		Keeping Up To Date</h2>
     <p>
-		&nbsp;</p>
-    <p>
-		&nbsp;</p>
+		The Composite Data Service Framework is hosted on CodePlex at:
+        <a href="http://cdsf.codeplex.com/">http://cdsf.codeplex.com/</a>. The roadmap 
+        for the project is on the main page. I would welcome any suggestions or ideas!&nbsp;As 
+        this project developes we will be completing the following tasks:</p>
+    <ul>
+        <li>Allow an Entity Framework Model to be used as a Composite Data Source - without 
+            the need for a WCF Data Service to expose it first.</li>
+        <li>Allow collections of standard CLR Objects to be used as a Composite Data Source.</li>
+        <li>Demonstrate customisation of the creating of the client-side Service Reference 
+            by showing how to create a special attribute used client side to mark a property 
+            as client-side only.</li>
+        <li>Demonstrate how Service Operation proxies can be generated automatically when 
+            adding the service reference.</li>
+        <li>Show how to extend visual studio with custom templates for items, projects and 
+            show how to use Wizards to customise the generation of these items.</li>
+    </ul>
     <h2>Further Reading</h2><p>
 		There is a great set of posts on Alex D James&#39; blog &#39;Meta-Me&#39; describing how to 
         create custom data services - the first post is here  
         <a href="http://blogs.msdn.com/b/alexj/archive/2010/01/07/data-service-providers-getting-started.aspx">
-        http://blogs.msdn.com/b/alexj/archive/2010/01/07/data-service-providers-getting-started.aspx</a>.</p><h2>History</h2><p>
-		Keep a running update of any changes or improvements you've
-		made here.
-	</p>
+        http://blogs.msdn.com/b/alexj/archive/2010/01/07/data-service-providers-getting-started.aspx</a>.</p>
+    <p>
+		The Composite Data Service Framework is hosted on CodePlex at:
+        <a href="http://cdsf.codeplex.com/">http://cdsf.codeplex.com/</a>.</p>
+    <p>
+		I post various articles about the ongoing development of my projects on my blog:
+        <a href="http://www.dwmkerr.com">http://www.dwmkerr.com</a>.</p>
+    <p>
+		&nbsp;</p>
 </body>
 </html>
