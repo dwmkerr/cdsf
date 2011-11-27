@@ -4,32 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Data.Services;
 using System.Data.Services.Providers;
+using System.Reflection;
+using System.ServiceModel.Web;
 
 namespace CompositeDataServiceFramework.Server
 {
     public class CompositeDataService : DataService<CompositeDataServiceContext>,
         IServiceProvider
     {
-      public CompositeDataService()
-      {
-        //  Create the metadata provider.
-        metadataProvider = GetMetadataProvider();
+        public CompositeDataService()
+        {
+            //  Create the metadata provider.
+            metadataProvider = GetMetadataProvider();
 
-        //  Create the query provider.
-        queryProvider = GetQueryProvider(metadataProvider);
+            //  Create the query provider.
+            queryProvider = GetQueryProvider(metadataProvider);
 
-          //    Create the update provider.
-        updateProvider = GetUpdateProvider(metadataProvider, queryProvider);
-      }
+            //    Create the update provider.
+            updateProvider = GetUpdateProvider(metadataProvider, queryProvider);
+        }
 
-      /// <summary>
-      /// Creates the data source.
-      /// </summary>
-      /// <returns></returns>
-      protected override CompositeDataServiceContext CreateDataSource()
-      {
-        return context;
-      }
+        /// <summary>
+        /// Creates the data source.
+        /// </summary>
+        /// <returns></returns>
+        protected override CompositeDataServiceContext CreateDataSource()
+        {
+            return context;
+        }
+
         /// <summary>
         /// Gets the service object of the specified type.
         /// </summary>
@@ -65,39 +68,9 @@ namespace CompositeDataServiceFramework.Server
 
             //  Create the metadata provider.
             metadataProvider = new CompositeDataServiceMetadataProvider();
-           /*
-          var productType = new ResourceType(
-        typeof(Product), // CLR type backing this Resource 
-        ResourceTypeKind.EntityType, // Entity, ComplexType etc 
-        null, // BaseType 
-        metadataProvider.ContainerNamespace, // Namespace 
-        "Product2", // Name 
-        false // Abstract? 
-    );
-            var prodKey = new ResourceProperty(
-               "ProdKey",
-               ResourcePropertyKind.Key |
-               ResourcePropertyKind.Primitive,
-               ResourceType.GetPrimitiveResourceType(typeof(int))
-            );
-            var prodName = new ResourceProperty(
-               "Name",
-               ResourcePropertyKind.Primitive,
-               ResourceType.GetPrimitiveResourceType(typeof(string))
-            );
-            var prodPrice = new ResourceProperty(
-               "Price",
-               ResourcePropertyKind.Primitive,
-               ResourceType.GetPrimitiveResourceType(typeof(Decimal))
-            );
-            productType.AddProperty(prodKey);
-            productType.AddProperty(prodName);
-            productType.AddProperty(prodPrice);
-            metadataProvider.AddResourceType(productType);
-            metadataProvider.AddResourceSet(
-               new ResourceSet("Products", productType)
-            );*/
 
+            //  Set the base name.
+            metadataProvider.BaseName = GetType().Name;
 
             return metadataProvider; 
         }
@@ -140,6 +113,15 @@ namespace CompositeDataServiceFramework.Server
             //  Initialise each data source.
             foreach (var dataSource in compositeDataSources)
                 dataSource.Initialise(metadataProvider);
+
+            foreach (var serviceOperation in metadataProvider.ExposeServiceOperationsFromObject(this))
+            {
+                //  Add the service operation.
+                metadataProvider.AddCompositeServiceOperation(serviceOperation);
+            }
+
+            //  Freeze the metadata provider.
+            metadataProvider.Freeze();
         }
 
         private CompositeDataServiceContext context = new CompositeDataServiceContext();

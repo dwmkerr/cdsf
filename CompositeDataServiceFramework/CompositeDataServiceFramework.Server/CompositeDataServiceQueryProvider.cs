@@ -89,9 +89,21 @@ namespace CompositeDataServiceFramework.Server
             return metadataProvider.Types.Single(t => t.InstanceType == type); 
         }
 
+        /// <summary>
+        /// Invokes the given service operation and returns the results.
+        /// </summary>
+        /// <param name="serviceOperation">Service operation to invoke.</param>
+        /// <param name="parameters">Values of parameters to pass to the service operation.</param>
+        /// <returns>
+        /// The result of the service operation, or a null value for a service operation that returns void.
+        /// </returns>
         public object InvokeServiceOperation(ServiceOperation serviceOperation, object[] parameters)
         {
-            throw new NotImplementedException();
+            //  Get the composite service operation.
+            CompositeServiceOperation compositeServiceOperation;
+            if (metadataProvider.TryResolveCompositeServiceOperation(serviceOperation.Name, out compositeServiceOperation))
+                return compositeServiceOperation.DoInvokeServiceOperationAction(parameters);
+            return null;
         }
 
         /// <summary>

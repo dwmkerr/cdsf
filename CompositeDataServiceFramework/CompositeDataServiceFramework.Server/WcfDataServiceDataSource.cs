@@ -8,6 +8,7 @@ using System.IO;
 using System.Data.Services.Providers;
 using System.Reflection;
 using System.Data.Metadata.Edm;
+using System.ServiceModel.Web;
 
 namespace CompositeDataServiceFramework.Server
 {
@@ -162,22 +163,6 @@ namespace CompositeDataServiceFramework.Server
             metadataProvider.Freeze();
         }
         
-        /// <summary>
-        /// This function maps an EdmType to a ResourceType - a fairly common operation.
-        /// </summary>
-        /// <param name="edmType">The EdmType.</param>
-        /// <returns>The ResourceType compatible with the EdmType.</returns>
-        private ResourceType MapEdmType(EdmType edmType)
-        {
-            //  If the EdmType is a primitive type, we can simply get a resource type from the 
-            //  clr type.
-            if (edmType is PrimitiveType)
-                return ResourceType.GetPrimitiveResourceType(((PrimitiveType)edmType).ClrEquivalentType);
-            
-            //  The EdmType is not primitive, and therefore at this stage we cannot support it.
-            throw new Exception("Cannot map EDM Type '" + edmType.Name + "'");
-        }
-
         private void CreateNavigationProperties(CompositeDataServiceMetadataProvider metadataProvider, EntityType entityType, ObjectContext context)
         {
             //  Go through each navigation property.
@@ -202,6 +187,8 @@ namespace CompositeDataServiceFramework.Server
             }
         }
 
+        
+
         /// <summary>
         /// Creates the service operation.
         /// </summary>
@@ -215,7 +202,8 @@ namespace CompositeDataServiceFramework.Server
             foreach (var edmParameter in edmFunction.Parameters)
             {
                 //  Add the service operation parameter.
-                serviceOperationParameters.Add(new ServiceOperationParameter(edmParameter.Name, MapEdmType(edmParameter.TypeUsage.EdmType)));
+                serviceOperationParameters.Add(new ServiceOperationParameter(edmParameter.Name, 
+                    CompositeDataServiceMetadataProvider.MapEdmTypeToResourceType(edmParameter.TypeUsage.EdmType)));
             }
 
             //  Unless we determine otherwise, the result kind will be void
@@ -355,7 +343,7 @@ namespace CompositeDataServiceFramework.Server
                 var resourceProperty = new ResourceProperty(
                        propertyType.Name,
                        kind,
-                       MapEdmType(propertyType.TypeUsage.EdmType)
+                       CompositeDataServiceMetadataProvider.MapEdmTypeToResourceType(propertyType.TypeUsage.EdmType)
                     );
                 resourceType.AddProperty(resourceProperty);
             }

@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Composite Data Service Framework 1</title>
+</head>
+<body>
+<h2>Introduction</h2><p>
+		Welcome! In this series of articles I am going to show you how to perform some 
+        advanced OData/WCF Data Service tasks, such as creating a custom data service 
+        provider, customing generation of service references and more. First I will 
+        describe some of the limitations of WCF Data Services and then how we will 
+        address them.</p><h2>Limitations of WCF Data Services</h2><p>
+		WCF Data Services are great, but currently have a few key limitations:</p>
+    <ul>
+        <li>It is difficult to aggregate many data sources into a single data service</li>
+        <li>It is very hard to augment WCF Data Services with standard WCF Services.</li>
+        <li>No client-side proxies are generated for service operations.</li>
+    </ul>
+    <p>
+        There are some more subtle limitations that we&#39;ll see later.
+    </p>
+    <h2>The Composite Data Service Framework</h2><p>
+		With these limitations in mind I have created a project called the Composite 
+        Data Service Framework. The main aim of this project is to allow many data 
+        sources to be aggregated together to create a single composite WCF Data Service, 
+        in a many highlighted by the diagram below.</p>
+    <img src="CSDF Diagram.png" />
+<h2>
+		Creating a Composite Data Service</h2>
+    <p>
+		Creating a composite data service is very simple. First, add a WCF Data Service 
+        class for each model you want to expose - in the example solution provided I 
+        have two Models - an OrdersDataModel and a UsersDataModel. These models are 
+        Entity Framework Data Models. Now create another WCF Data Service, named 
+        something like &#39;CompositeDataService&#39;. All you now need to do is derive from 
+        CompositeDataService and add each distinct WCF Data Service as a 
+        CompositeDataSource.</p>
+    <p>
+		Here&#39;s how we do it step-by-step.</p>
+    <p>
+		First, create the Composite Data Service, by adding a WCF Data Service to your 
+        application:</p>
+    <pre>/// &lt;summary&gt;
+    /// This is an example of a composite data service.
+    /// &lt;/summary&gt;
+    public class CompositeDataServiceSample : CompositeDataServiceFramework.Server.CompositeDataService
+    {
+        /// &lt;summary&gt;
+        /// A WcfDataServiceDataSource for the Orders Data Service.
+        /// &lt;/summary&gt;
+        private WcfDataServiceDataSource&lt;OrdersModelContainer&gt; ordersDataService;
+
+        /// &lt;summary&gt;
+        /// A WcfDataServiceDataSource for the Users Data Service.
+        /// &lt;/summary&gt;
+        private WcfDataServiceDataSource&lt;UsersDataModelContainer&gt; usersDataService;</pre>
+    <p>
+		What we have done here is create a composite data service that has two data 
+        source members - one for our users model and one for our orders model. Next we 
+        initialise our service just as we would any normal WCF Data Service - specifying 
+        access for each object and operation.</p>
+    <pre>/// &lt;summary&gt;
+        /// Initializes the service.
+        /// &lt;/summary&gt;
+        /// &lt;param name="config"&gt;The config.&lt;/param&gt;
+        public static void InitializeService(DataServiceConfiguration config)
+        {
+            //  Allow full access to all entity sets and all service operations.
+            config.SetEntitySetAccessRule("*", EntitySetRights.All);
+            config.SetServiceOperationAccessRule("*", ServiceOperationRights.All);
+            config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V2;
+        }</pre>
+    <p>
+		Finally, in the constructor we build the two data sources and add them to the 
+        composite data service then initialise it.</p>
+    <pre>/// &lt;summary&gt;
+        /// Initializes a new instance of the &lt;see cref="CompositeDataServiceSample"/&gt; class.
+        /// &lt;/summary&gt;
+        public CompositeDataServiceSample()
+        {
+            //  Create the orders data source, by providing an Orders Data Service, Orders Model Container
+            //  and the Url to the data service.
+            ordersDataSource = new WcfDataServiceDataSource&lt;OrdersModelContainer&gt;(
+                new OrdersDataService(),
+                new OrdersModelContainer(),
+                new Uri("http://localhost:65110/OrdersDataService.svc"));
+
+            //  Create the users data source, by providing a Users Data Service, Users Model Container
+            //  and the Url to the data service.
+            usersDataSource = new WcfDataServiceDataSource&lt;UsersDataModelContainer&gt;(
+                new UsersDataService(),
+                new UsersDataModelContainer(),
+                new Uri("http://localhost:65110/UsersDataService.svc"));
+            
+            //  Add each data source.
+            AddDataSource(ordersDataSource);
+            AddDataSource(usersDataSource);
+
+            //  Initialise the data service.
+            Initialise();
+        }</pre>
+    <p>Now you can run up the data service and put /$metadata at the end of the URL - this single data service aggregates the two other data services into one!</p>
+    <p>Now when you add a reference to the composite data service in a client project, 
+        you have access to entities from both services, from the clients point of view 
+        it doesn&#39;t matter where they come from, they are presented as part of the same 
+        service.</p>        
+    <h2>
+		How Does It Work?</h2>
+    <p>
+		There is a lot of code in this project already, and there&#39;s going to be more as 
+        I build up the full set of features. So rather than going through the code 
+        line-by-line as I do in most of my articles, I&#39;m going to describe the code in a 
+        more high level way.</p>
+    <h3>
+		Creating a Custom Data Service</h3>
+    <p>
+		The first thing to do is to derive a class from
+        <a href="http://msdn.microsoft.com/en-us/library/cc646779.aspx">Data Service</a>. 
+        This will be the the main object that represents that Composite Data Service. 
+        This object must also implement the
+        <a href="http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx">
+        IServiceProvider</a> interface, to allow instances of supporting interfaces to 
+        be instantiated.</p>
+    <p>
+		The following interfaces must now be supported (in this framework each is in its 
+        own class).</p>
+    <h3>
+		IDataServiceMetadataProvider</h3>
+    <p>
+		The
+        <a href="http://msdn.microsoft.com/en-us/library/system.data.services.providers.idataservicemetadataprovider.aspx">
+        IDataServiceMetadataProvider</a> interface exposes information about the service 
+        itself - what collections it exposes, the object types it exposes, its service 
+        operations and relationships between objects.</p>
+    <h3>
+		IDataServiceQueryProvider</h3>
+    <p>
+		The 
+        <a href="http://msdn.microsoft.com/en-us/library/system.data.services.providers.idataservicequeryprovider.aspx">
+       IDataServiceQueryProvider</a> interface allows actual querying of the data in a 
+        data service. The most important function of the lot is
+        <a href="http://msdn.microsoft.com/en-us/library/system.data.services.providers.idataservicequeryprovider.getqueryrootforresourceset.aspx">
+        GetQueryRootForResourceSet</a>, which must return an
+        <a href="http://msdn.microsoft.com/en-us/library/system.linq.iqueryable.aspx">
+        IQueryable</a> for a specific resource set.</p>
+    <h3>
+		IDataServiceUpdateProvider</h3>
+    <p>
+		The
+        <a href="http://msdn.microsoft.com/en-us/library/system.data.services.providers.idataserviceupdateprovider.aspx">
+        IDataServiceUpdateProvider</a> interface exposes functions to enable 
+        manipulation of the data we have defined in the Metadata Provider and exposed in 
+        the Query Provider. It allows data to be updated, deleted etc.</p>
+    <p>
+		&nbsp;</p>
+    <p>
+		&nbsp;</p>
+    <h2>Further Reading</h2><p>
+		There is a great set of posts on Alex D James&#39; blog &#39;Meta-Me&#39; describing how to 
+        create custom data services - the first post is here  
+        <a href="http://blogs.msdn.com/b/alexj/archive/2010/01/07/data-service-providers-getting-started.aspx">
+        http://blogs.msdn.com/b/alexj/archive/2010/01/07/data-service-providers-getting-started.aspx</a>.</p><h2>History</h2><p>
+		Keep a running update of any changes or improvements you've
+		made here.
+	</p>
+</body>
+</html>

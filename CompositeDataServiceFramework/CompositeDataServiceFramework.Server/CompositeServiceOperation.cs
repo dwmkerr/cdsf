@@ -6,6 +6,8 @@ using System.Data.Services.Providers;
 
 namespace CompositeDataServiceFramework.Server
 {
+    public delegate object InvokeServiceOperationDelegate(object[] parameters);
+
     public class CompositeServiceOperation
     {
         public string Name
@@ -24,6 +26,16 @@ namespace CompositeDataServiceFramework.Server
         {
             get;
             set;
+        }
+
+        public event InvokeServiceOperationDelegate InvokeServiceOperationAction;
+
+        public object DoInvokeServiceOperationAction(object[] parameters)
+        {
+            var action = InvokeServiceOperationAction;
+            if (action != null)
+                return action(parameters);
+            return null;
         }
     }
 }

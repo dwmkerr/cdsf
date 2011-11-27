@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.Services.Providers;
+using System.Reflection;
+using System.ServiceModel.Web;
+using System.Data.Services;
+using System.Data.Metadata.Edm;
 
 namespace CompositeDataServiceFramework.Server
 {
@@ -13,6 +17,18 @@ namespace CompositeDataServiceFramework.Server
     public class CompositeDataServiceMetadataProvider : IDataServiceMetadataProvider
     {
         /// <summary>
+        /// Gets or sets the name of the base.
+        /// </summary>
+        /// <value>
+        /// The name of the base.
+        /// </value>
+        public string BaseName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Container name for the data source.
         /// </summary>
         /// <returns>String that contains the name of the container.</returns>
@@ -20,9 +36,8 @@ namespace CompositeDataServiceFramework.Server
         {
             get 
             {
-                //  TODO: What is the most appropriate choice here? A static string?
-                //  A property set from the constructor?
-                return "CompositeDataServiceContainer";
+                //  Get the name of the class, we'll use that as the base for the container name.
+                return BaseName + "Container";
             }
         }
 
@@ -32,11 +47,10 @@ namespace CompositeDataServiceFramework.Server
         /// <returns>String that contains the namespace name.</returns>
         public string ContainerNamespace
         {
-            get 
-            { 
-                //  TODO: What is the most appropriate choice here? A static string?
-                //  A property set from the constructor?
-                return "CompositeDataServiceContainerNamespace";
+            get
+            {
+                //  Get the name of the class, we'll use that as the base for the namespace.
+                return BaseName + "Namespace";
             }
         }
 
@@ -326,6 +340,155 @@ namespace CompositeDataServiceFramework.Server
             //  Freeze each service operation.
             foreach (var so in serviceOperations.Values.Where((so) => { return so.ServiceOperation.IsReadOnly == false; }))
                 so.ServiceOperation.SetReadOnly();
+        }
+
+        public IEnumerable<CompositeServiceOperation> ExposeServiceOperationsFromObject(object o)
+        {
+            //  Get the object type.
+            Type objectType = o.GetType();
+
+            //  Get each methodinfo.
+            MethodInfo[] methodInfos = objectType.GetMethods();
+
+            //  Go through each method.
+            foreach (var methodInfo in methodInfos)
+            {
+                //  TODO*** We should also be able to handle WebInvoke(Method=POST) functions.
+                //  Does this method have the WebGet property?
+                if (Attribute.IsDefined(methodInfo, typeof(WebGetAttribute)))
+                {                    
+                    //  Create a set of service operation parameters.
+                    List<ServiceOperationParameter> serivceOperationParameters = new List<ServiceOperationParameter>();
+
+                    //  Add each parameter.
+                    foreach (var parameterInfo in methodInfo.GetParameters())
+                        serivceOperationParameters.Add(new ServiceOperationParameter(parameterInfo.Name, MapClrTypeToResourceType(parameterInfo.ParameterType)));
+
+                    //  Unless we determine otherwise, the result kind will be void
+                    //  and the result set will be null.
+                    ServiceOperationResultKind resultKind = ServiceOperationResultKind.Void;
+                    ResourceType resultType = null;
+                    ResourceSet resultSet = null;
+
+                    //  We can only set return type information if the return
+                    //  type is not set (i.e. it's void).
+                    if (methodInfo.ReturnType != typeof(void))
+                    {
+                        //  Get the return parameter type.
+                        var clrReturnType = methodInfo.ReturnType;
+
+                        //  Are we returning a collection?
+                        if (clrReturnType.IsSubclassOfRawGeneric(typeof(IQueryable<>)) ||
+                            clrReturnType.IsSubclassOfRawGeneric(typeof(IEnumerable<>)))
+                        {
+                            //  Set the result type.
+                            resultKind = ServiceOperationResultKind.QueryWithMultipleResults;
+
+                            //  Set the result set.
+                            CompositeResourceSet compositeResourceSet;
+                            if (TryResolveCompositeResourceSetForResourceType(clrReturnType.GetGenericArguments()[0].Name,
+                                out compositeResourceSet) == false)
+                                throw new DataServiceException("Unable to build metadata for the Service Operation '" + methodInfo.Name + "'.");
+                            resultSet = compositeResourceSet.ResourceSet;
+
+                            //  Set the resource type.
+                            resultType = compositeResourceSet.ResourceSet.ResourceType;
+                        }
+                        //  Is it a resource type?
+                        else if (resourceTypes.ContainsKey(clrReturnType.Name))
+                        {
+                            //  Set the result kind.
+                            resultKind = ServiceOperationResultKind.QueryWithSingleResult;
+
+                            //  Set the result type.
+                            resultType = resourceTypes[clrReturnType.Name].ResourceType;
+
+                            //  Set the result set.
+                            CompositeResourceSet compositeResourceSet;
+                            if (TryResolveCompositeResourceSetForResourceType(resultType.Name, out compositeResourceSet) == false)
+                                throw new DataServiceException("Unable to build metadata for the Service Operation '" + methodInfo.Name + "'.");
+                            resultSet = compositeResourceSet.ResourceSet;
+                        }
+                        //  Otherwise try and use a direct return value.
+                        else
+                        {
+                            //  Set the result kind.
+                            resultKind = ServiceOperationResultKind.DirectValue;
+
+                            //  Try and get the primitive resource type.
+                            try
+                            {
+                                resultType = MapClrTypeToResourceType(clrReturnType);
+                            }
+                            catch
+                            {
+                                throw new DataServiceException("Service Operation '" + methodInfo.Name + "' cannot return type '" + clrReturnType.Name + "'.");
+                            }
+                        }
+                    }
+
+                    //  TODO: Create the method. At the moment we force get
+                    //  but we want to support POST as well.
+                    string method = "GET";
+                    
+                    //  Create the Service Operation.
+                    var serviceOperation = new ServiceOperation(methodInfo.Name,
+                        resultKind, resultType, resultSet, method, serivceOperationParameters);
+
+                    //  Create the Composite Service Operation.
+                    var compositeDataServiceOperation = new CompositeServiceOperation()
+                    {
+                        Name = serviceOperation.Name,
+                        ServiceOperation = serviceOperation
+                    };
+
+                    //  Build the invoke action.
+                    var methodInfoToInvoke = methodInfo;
+                    compositeDataServiceOperation.InvokeServiceOperationAction +=
+                        (paramerters)
+                            =>
+                        {
+                            return methodInfoToInvoke.Invoke(o, paramerters);
+                        };
+
+                    //  Return the composite service operaiton.
+                    yield return compositeDataServiceOperation;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// This function maps an EdmType to a ResourceType - a fairly common operation.
+        /// </summary>
+        /// <param name="edmType">The EdmType.</param>
+        /// <returns>The ResourceType compatible with the EdmType.</returns>
+        public static ResourceType MapEdmTypeToResourceType(EdmType edmType)
+        {
+            //  We cannot handle anything apart from primitive types.
+            if (edmType is PrimitiveType == false)
+                throw new DataServiceException("Cannot map EDM Type '" + edmType.Name + "'");
+            
+            //  Return the mapped ResourceType from the Primitive EdmType CLR Equivalent Type.
+            return ResourceType.GetPrimitiveResourceType(((PrimitiveType)edmType).ClrEquivalentType);
+        }
+
+        /// <summary>
+        /// This function maps a CLR type to a ResourceType if possible.
+        /// </summary>
+        /// <param name="clrType">The CLR Type.</param>
+        /// <returns>The ResourceType.</returns>
+        public static ResourceType MapClrTypeToResourceType(Type clrType)
+        {
+            //  Try and get the resource type.
+            ResourceType resourceType = ResourceType.GetPrimitiveResourceType(clrType);
+            
+            //  Check for bad mappings.
+            if(resourceType == null)
+                throw new DataServiceException("Cannot map CLR Type '" + clrType.Name + "'");
+                        
+            //  Return the resource type.
+            return resourceType;
         }
 
         /// <summary>

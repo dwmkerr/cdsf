@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CompositeDataServiceFramework.Server.CompositeDataService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="5.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>QAACAEAAAAICEQAAAAQAAAAAQAAAAAAAAAhAAAAAAEA=</HashCode>
+      <FileName>CompositeDataService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CompositeDataServiceFramework.Server.CompositeDataServiceContext" Collapsed="true">
+    <Position X="3.25" Y="6.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAEAAAAAAAAAAAQAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>CompositeDataServiceContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CompositeDataServiceFramework.Server.CompositeDataServiceMetadataProvider" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="5.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AgBCBAgMBEAACAQAIAIAAAQAAAgBEBAAAYAAgBACQCI=</HashCode>
+      <FileName>CompositeDataServiceMetadataProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CompositeDataServiceFramework.Server.CompositeDataServiceQueryProvider" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="6.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAQABAAAAAAAAACAAAAAAEAAACAAAAAQAAAACA=</HashCode>
+      <FileName>CompositeDataServiceQueryProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CompositeDataServiceFramework.Server.CompositeDataServiceUpdateProvider" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="7.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>wAAKgAEAIAIAAoAAAAAAAAAAAAQAABEgACBAKgABAAA=</HashCode>
+      <FileName>CompositeDataServiceUpdateProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CompositeDataServiceFramework.Server.CompositeDataSource" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAIAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CompositeDataSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CompositeDataServiceFramework.Server.CompositeResourceAssociationSet" Collapsed="true">
+    <Position X="4.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAQIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CompositeResourceAssociationSet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CompositeDataServiceFramework.Server.CompositeResourceSet" Collapsed="true">
+    <Position X="6.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CACAAIBABAgAAgAQAAAAAAQAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CompositeResourceSet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CompositeDataServiceFramework.Server.CompositeResourceType" Collapsed="true">
+    <Position X="8.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAggAAAACAQAQAAAAAAAEAAAAAgAAAAAA=</HashCode>
+      <FileName>CompositeResourceType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CompositeDataServiceFramework.Server.CompositeServiceOperation" Collapsed="true">
+    <Position X="3.25" Y="7.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAAQAAAAAAAAAAABAAAAIAAA=</HashCode>
+      <FileName>CompositeServiceOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CompositeDataServiceFramework.Server.PropertyInfoExtensions" Collapsed="true">
+    <Position X="4.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>PropertyInfoExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CompositeDataServiceFramework.Server.TypeExtensions" Collapsed="true">
+    <Position X="6.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TypeExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CompositeDataServiceFramework.Server.WcfDataServiceDataSource&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACAAIBAgAAAQAAAAAAAQBAEAIiAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WcfDataServiceDataSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CompositeDataServiceFramework.Server.WcfDataServiceMetadataLoader" Collapsed="true">
+    <Position X="8.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IEgAAAAAIAAABIAAAAAAAhAAAACwAEAAAABAgAAAAAA=</HashCode>
+      <FileName>WcfDataServiceMetadataLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Delegate Name="CompositeDataServiceFramework.Server.CreateResourceDelegate" Collapsed="true">
+    <Position X="6.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CompositeResourceSet.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="CompositeDataServiceFramework.Server.AddResourceDelegate" Collapsed="true">
+    <Position X="4.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>CompositeResourceSet.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="CompositeDataServiceFramework.Server.DeleteResourceDelegate" Collapsed="true">
+    <Position X="8.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CompositeResourceSet.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="CompositeDataServiceFramework.Server.AddReferenceToCollectionDelegate" Collapsed="true">
+    <Position X="3" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAQAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CompositeResourceType.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="CompositeDataServiceFramework.Server.RemoveReferenceFromCollectionDelegate" Collapsed="true">
+    <Position X="4.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAQAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CompositeResourceType.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="CompositeDataServiceFramework.Server.InvokeServiceOperationDelegate" Collapsed="true">
+    <Position X="3" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CompositeServiceOperation.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
