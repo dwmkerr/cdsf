@@ -38,7 +38,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{47EB72C1-DA27-4777-BF5D-CB155432938F}"
 	ProjectSection(SolutionItems) = preProject
 		Assets\CDSF Logo.psd = Assets\CDSF Logo.psd
-		Assets\CDSF-CodePlex-Banner-Logo.png = Assets\CDSF-CodePlex-Banner-Logo.png
 		Assets\CDSF-Logo.png = Assets\CDSF-Logo.png
 		Assets\CompositeDataService.png = Assets\CompositeDataService.png
 		Assets\CSDF Diagram.png = Assets\CSDF Diagram.png
