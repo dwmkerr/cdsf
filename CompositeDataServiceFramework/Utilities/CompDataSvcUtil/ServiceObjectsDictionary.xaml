@@ -1,0 +1,53 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CompDataSvcUtil"
+                    xmlns:apexConverters="clr-namespace:Apex.Converters;assembly=Apex">
+
+    <apexConverters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+    
+    <HierarchicalDataTemplate 
+        DataType="{x:Type local:EntityContainerViewModel}"
+        ItemsSource="{Binding Children}">
+        <StackPanel Orientation="Horizontal">
+            <Image Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="/CompDataSvcUtil;component/Images/EntityContainer.png" />
+            <TextBlock Text="{Binding Name}" />
+        </StackPanel>
+    </HierarchicalDataTemplate>
+
+    <HierarchicalDataTemplate 
+        DataType="{x:Type local:EntitySetViewModel}"
+        ItemsSource="{Binding Children}">
+        <StackPanel Orientation="Horizontal">
+            <Image Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="/CompDataSvcUtil;component/Images/EntitySet.png" />
+            <TextBlock Text="{Binding Name}" />
+        </StackPanel>
+    </HierarchicalDataTemplate>
+
+    <HierarchicalDataTemplate 
+        DataType="{x:Type local:EntityTypeViewModel}"
+        ItemsSource="{Binding Children}">
+        <StackPanel Orientation="Horizontal">
+            <Image Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="/CompDataSvcUtil;component/Images/EntityType.png" />
+            <TextBlock Text="{Binding Name}" />
+        </StackPanel>
+    </HierarchicalDataTemplate>
+
+    <HierarchicalDataTemplate 
+        DataType="{x:Type local:AssociationTypeViewModel}"
+        ItemsSource="{Binding Children}">
+        <StackPanel Orientation="Horizontal">
+            <Image Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="/CompDataSvcUtil;component/Images/AssociationType.png" />
+            <TextBlock Text="{Binding Name}" />
+        </StackPanel>
+    </HierarchicalDataTemplate>
+
+    <HierarchicalDataTemplate 
+        DataType="{x:Type local:ServiceOperationViewModel}"
+        ItemsSource="{Binding Children}">
+        <StackPanel Orientation="Horizontal">
+            <Image Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="/CompDataSvcUtil;component/Images/ServiceOperation.png" />
+            <TextBlock Text="{Binding Name}" />
+        </StackPanel>
+    </HierarchicalDataTemplate>
+
+</ResourceDictionary>

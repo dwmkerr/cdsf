@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:CompDataSvcUtil"
         xmlns:apexControls="clr-namespace:Apex.Controls;assembly=Apex"
+        xmlns:apexConverters="clr-namespace:Apex.Converters;assembly=Apex"
         Title="MainWindow" Height="350" Width="525">
     
     <Window.DataContext>
@@ -28,5 +29,21 @@
             
         </apexControls:ApexGrid>
         
+        <!-- The data service view. -->
+        <local:DataServiceView 
+            Visibility="{Binding DataService, Converter={StaticResource NullToVisibilityConverter}}"
+            Grid.Row="1" DataService="{Binding DataService}" />
+
+        <!-- The data service view. -->
+        <Grid
+            Visibility="{Binding DataService, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=Invert}"
+            Grid.Row="1">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap">
+                <Run>Enter the URI of an OData Service and press</Run>
+                <Hyperlink Command="{Binding GoCommand}">Go</Hyperlink>
+                <Run>to get started.</Run>
+            </TextBlock>
+        </Grid>
+
     </apexControls:ApexGrid>
 </Window>
