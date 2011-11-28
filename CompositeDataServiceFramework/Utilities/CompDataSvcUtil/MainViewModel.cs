@@ -57,11 +57,7 @@ namespace CompDataSvcUtil
             //  Add each entity type.
             foreach (var entityType in metadataLoader.EntityTypes)
             {
-                entityContainer.EntityTypes.Add(
-                    new EntityTypeViewModel()
-                    {
-                        Name = entityType.Name 
-                    });
+                entityContainer.EntityTypes.Add(new EntityTypeViewModel(entityType));
             }
 
             //  Add each entity set.

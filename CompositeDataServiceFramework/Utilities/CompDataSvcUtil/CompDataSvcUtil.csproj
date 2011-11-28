@@ -70,6 +70,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EntityTypeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -79,6 +83,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AssociationTypeViewModel.cs" />
+    <Compile Include="DataServiceItemGroup.cs" />
+    <Compile Include="EntityTypeView.xaml.cs">
+      <DependentUpon>EntityTypeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ServiceOperationViewModel.cs" />
     <Compile Include="EntityTypeViewModel.cs" />
     <Compile Include="EntitySetViewModel.cs" />
@@ -140,6 +148,9 @@
     <Resource Include="Images\AssociationType.png" />
     <Resource Include="Images\EntityType.png" />
     <Resource Include="Images\ServiceOperation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Group.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -38,6 +38,10 @@ namespace CompDataSvcUtil
         {
             DataServiceView me = o as DataServiceView;
         }
-                
+
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            DataService.SelectedItem = e.NewValue;
+        }
     }
 }

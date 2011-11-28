@@ -21,5 +21,16 @@ namespace CompDataSvcUtil
         {
             get { return entityContainers; }
         }
+
+        
+        private NotifyingProperty SelectedItemProperty =
+          new NotifyingProperty("SelectedItem", typeof(object), default(object));
+
+        public object SelectedItem
+        {
+            get { return (object)GetValue(SelectedItemProperty); }
+            set { SetValue(SelectedItemProperty, value); }
+        }
+                
     }
 }

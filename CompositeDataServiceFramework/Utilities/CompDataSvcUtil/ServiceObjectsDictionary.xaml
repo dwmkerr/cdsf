@@ -15,8 +15,16 @@
     </HierarchicalDataTemplate>
 
     <HierarchicalDataTemplate 
-        DataType="{x:Type local:EntitySetViewModel}"
+        DataType="{x:Type local:DataServiceItemGroup}"
         ItemsSource="{Binding Children}">
+        <StackPanel Orientation="Horizontal">
+            <Image Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="/CompDataSvcUtil;component/Images/Group.png" />
+            <TextBlock Text="{Binding Name}" />
+        </StackPanel>
+    </HierarchicalDataTemplate>
+
+    <HierarchicalDataTemplate 
+        DataType="{x:Type local:EntitySetViewModel}">
         <StackPanel Orientation="Horizontal">
             <Image Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="/CompDataSvcUtil;component/Images/EntitySet.png" />
             <TextBlock Text="{Binding Name}" />
@@ -24,8 +32,7 @@
     </HierarchicalDataTemplate>
 
     <HierarchicalDataTemplate 
-        DataType="{x:Type local:EntityTypeViewModel}"
-        ItemsSource="{Binding Children}">
+        DataType="{x:Type local:EntityTypeViewModel}">
         <StackPanel Orientation="Horizontal">
             <Image Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="/CompDataSvcUtil;component/Images/EntityType.png" />
             <TextBlock Text="{Binding Name}" />
@@ -33,8 +40,7 @@
     </HierarchicalDataTemplate>
 
     <HierarchicalDataTemplate 
-        DataType="{x:Type local:AssociationTypeViewModel}"
-        ItemsSource="{Binding Children}">
+        DataType="{x:Type local:AssociationTypeViewModel}">
         <StackPanel Orientation="Horizontal">
             <Image Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="/CompDataSvcUtil;component/Images/AssociationType.png" />
             <TextBlock Text="{Binding Name}" />
@@ -42,8 +48,7 @@
     </HierarchicalDataTemplate>
 
     <HierarchicalDataTemplate 
-        DataType="{x:Type local:ServiceOperationViewModel}"
-        ItemsSource="{Binding Children}">
+        DataType="{x:Type local:ServiceOperationViewModel}">
         <StackPanel Orientation="Horizontal">
             <Image Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" Source="/CompDataSvcUtil;component/Images/ServiceOperation.png" />
             <TextBlock Text="{Binding Name}" />

@@ -46,18 +46,33 @@ namespace CompDataSvcUtil
             get { return serviceOperations; }
         }
 
-        public IEnumerable<ViewModel> Children
+        public IEnumerable<DataServiceItemGroup> Children
         {
             get
             {
-                foreach (var e in entitySets)
-                    yield return e;
-                foreach (var e in entityTypes)
-                    yield return e;
-                foreach (var e in associationTypes)
-                    yield return e;
-                foreach (var e in serviceOperations)
-                    yield return e;
+                DataServiceItemGroup group = new DataServiceItemGroup()
+                {
+                    Name = "Entity Sets",
+                    Children = entitySets.ToArray()
+                };
+                yield return group; 
+                group = new DataServiceItemGroup()
+                {
+                    Name = "Entity Types",
+                    Children = entityTypes.ToArray()
+                };
+                yield return group; 
+                group = new DataServiceItemGroup()
+                {
+                    Name = "Association Types",
+                    Children = associationTypes.ToArray()
+                };
+                group = new DataServiceItemGroup()
+                {
+                    Name = "Service Operations",
+                    Children = serviceOperations.ToArray()
+                };
+                yield return group;
             }
         }
     }

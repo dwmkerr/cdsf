@@ -8,6 +8,9 @@
              xmlns:apexControls="clr-namespace:Apex.Controls;assembly=Apex"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.Resources>
+    </UserControl.Resources>
         
     <!-- The binding root. -->
     <Grid x:Name="bindingRoot" DataContext="{Binding DataService, ElementName=dataServiceView}">
@@ -16,10 +19,28 @@
         <apexControls:ApexGrid Columns="*,Auto,1.5*">
 
             <!-- The list of service entities. -->
-            <TreeView Grid.Column="0" ItemsSource="{Binding EntityContainers}" />
+            <TreeView Grid.Column="0" ItemsSource="{Binding EntityContainers}" SelectedItemChanged="TreeView_SelectedItemChanged" />
 
+            <GridSplitter Grid.Column="1" Width="5" Height="Auto" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" />
+            
+            <!-- The selected item. -->
+            <ContentPresenter 
+                Grid.Column="2" Content="{Binding SelectedItem}" 
+                Visibility="{Binding SelectedItem, Converter={StaticResource NullToVisibilityConverter}}">
+                <ContentPresenter.Resources>
 
-
+                    <DataTemplate DataType="{x:Type local:EntityTypeViewModel}">
+                        <local:EntityTypeView EntityType="{Binding}" />
+                    </DataTemplate>
+                </ContentPresenter.Resources>
+            </ContentPresenter>
+            <Grid
+                Grid.Column="2" 
+                    Visibility="{Binding SelectedItem, 
+                Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=Invert}">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"
+                           Text="Select an item from the left to view its details." />
+            </Grid>
         </apexControls:ApexGrid>
         
     </Grid>
