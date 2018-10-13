@@ -1,5 +1,7 @@
 # cdsf
 
+[![GuardRails badge](https://badges.production.guardrails.io/dwmkerr/cdsf.svg)](https://www.guardrails.io)
+
 Project Description
 The Composite Data Service Framework is a toolkit that extends the functionality of the WCF Data Services APIs by allowing a set of OData Services from distinct data sources to be aggregated into a single Data Service, with client-side APIs to help with common tasks.
 
